@@ -2,7 +2,7 @@
 CSC 4330 group project Fall 2023
 
 ### Group Members
-Jacob Chase
+Jacob Chase <br>
 Amber Crowe
 Cathleen Foret
 Austin Peairs
