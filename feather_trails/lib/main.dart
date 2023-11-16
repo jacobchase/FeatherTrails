@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFFE8D9CC),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/Login',
       routes: {
         '/': (context) => MyHomePage(),
         '/placeItinerary': (context) => PlaceItineraryPage(),
+        '/Login': (context) => Login(),
       },
     );
   }
@@ -156,7 +157,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: const Text('Page 4'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Login');
+                },
+                child: const Text('Logout'),
+              ),
+            ],
+          ),
         ),
         Container(
           alignment: Alignment.center,
@@ -185,9 +196,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +206,12 @@ class Login extends StatelessWidget {
               height: 200,
             ),
             const SizedBox(height: 20),
-            const Text('Login will go here'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+              child: const Text('Go to Homepage'),
+            ),
           ],
         ),
       ),
