@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFFC93C13),
           secondary: const Color(0xFFE8D9CC),
+          background: const Color.fromARGB(0, 255, 255, 255),
         ),
       ),
       initialRoute: '/Login',
@@ -200,17 +201,95 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/Feather_Trails_Logo.jpg',
-              width: 200,
-              height: 200,
+            Padding(
+              padding: const EdgeInsets.all(35.0),
+              child: Image.asset(
+                'assets/images/Feather_Trails_Logo.jpg',
+                width: 350,
+                height: 350,
+              ),
             ),
             const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  hintText: 'Enter your username',
+                  prefixIcon: const Icon(Icons.person),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
+                  prefixIcon: const Icon(Icons.key),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/');
               },
-              child: const Text('Go to Homepage'),
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(const Size(360, 48)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              child: const Text('Sign in'),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 12.0), // Adjust the left padding as needed
+                  child: TextButton(
+                    onPressed: () {
+                      // Handle the "Forgot Password" action, e.g., navigate to a recovery page.
+                      // Navigator.pushNamed(context, '/forgotPassword');
+                    },
+                    child: const Text('Forgot Password?'),
+                  ),
+                ),
+                const SizedBox(
+                    width:
+                        8.0), // Add some space between the "Forgot Password?" and "Sign Up" links
+                Padding(
+                  padding: const EdgeInsets.only(left: 160.0),
+                  child: TextButton(
+                    onPressed: () {
+                      // Handle the "Sign Up" action, e.g., navigate to a registration page.
+                      // Navigator.pushNamed(context, '/signUp');
+                    },
+                    child: const Text('Sign up'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
