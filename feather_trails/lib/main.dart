@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFFE8D9CC),
         ),
       ),
-      home: Login(), // Set Login as the initial homepage
+      initialRoute: '/',
       routes: {
+        '/': (context) => MyHomePage(),
         '/placeItinerary': (context) => PlaceItineraryPage(),
-        '/Login': (context) => Login(),
       },
     );
   }
@@ -184,9 +184,23 @@ class PlaceItineraryPage extends StatelessWidget {
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Login"),
+      ),
       body: Center(
-        child: Text('Login will go here'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/Feather_Trails_Logo.jpg',
+              width: 200,
+              height: 200,
+            ),
+            const SizedBox(height: 20),
+            const Text('Login will go here'),
+          ],
+        ),
       ),
     );
   }
