@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFFC93C13),
           secondary: const Color(0xFFE8D9CC),
+          background: const Color(0xFFFFFFFFFF),
         ),
       ),
       initialRoute: '/Login',
@@ -158,13 +159,83 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/Login');
-                },
-                child: const Text('Logout'),
+              const Padding(
+                padding: EdgeInsets.all(58.0),
+                child: CircleAvatar(
+                  radius: 58, // Image radius
+                  backgroundImage: NetworkImage(
+                      'https://www.thingsguyana.com/wp-content/uploads/2020/01/1649px-Toco_Toucan_Ramphastos_toco_in_Papaya_Tree_Carica_papaya_28997424215-scaled.jpg',
+                      scale: 210),
+                ),
+              ),
+              const Text(
+                '@user0000',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    )),
+                    child: const Text('Account')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    )),
+                    child: const Text('Settings')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    )),
+                    child: const Text('Privacy')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    )),
+                    child: const Text('Notifications')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    )),
+                    child: const Text('Shared Itineraries')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  )),
+                  child: const Text('Logout'),
+                ),
               ),
             ],
           ),
