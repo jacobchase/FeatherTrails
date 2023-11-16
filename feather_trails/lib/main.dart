@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFFE8D9CC),
         ),
       ),
-      home: MyHomePage(),
+      home: Login(), // Set Login as the initial homepage
+      routes: {
+        '/placeItinerary': (context) => PlaceItineraryPage(),
+        '/Login': (context) => Login(),
+      },
     );
   }
 }
@@ -29,60 +33,161 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
   @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          indicatorColor: const Color.fromARGB(0, 255, 255, 255),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          height: 90,
-          selectedIndex: currentPageIndex,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.map_outlined, color: Color(0xFFFFFFFF), size: 36.0,),
-              icon: Icon(Icons.map_outlined, color: Color(0xFFB2B7AE), size: 36.0,),
-              label: 'Map',
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: const Color.fromARGB(0, 255, 255, 255),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        height: 90,
+        selectedIndex: currentPageIndex,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.map_outlined,
+              color: Color(0xFFFFFFFF),
+              size: 36.0,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.list, color: Color(0xFFFFFFFF), size: 36.0,),
-              icon: Icon(Icons.list, color: Color(0xFFB2B7AE), size: 36.0,),
-              label: 'Itinerary',
+            icon: Icon(
+              Icons.map_outlined,
+              color: Color(0xFFB2B7AE),
+              size: 36.0,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.language, color: Color(0xFFFFFFFF), size: 36.0,),
-              icon: Icon(Icons.language, color: Color(0xFFB2B7AE), size: 36.0,),
-              label: 'Social',
+            label: 'Map',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.list,
+              color: Color(0xFFFFFFFF),
+              size: 36.0,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.person_outlined, color: Color(0xFFFFFFFF), size: 36.0,),
-              icon: Icon(Icons.person_outlined, color: Color(0xFFB2B7AE), size: 36.0,),
-              label: 'Profile',
+            icon: Icon(
+              Icons.list,
+              color: Color(0xFFB2B7AE),
+              size: 36.0,
             ),
-          ],
+            label: 'Itinerary',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.language,
+              color: Color(0xFFFFFFFF),
+              size: 36.0,
+            ),
+            icon: Icon(
+              Icons.language,
+              color: Color(0xFFB2B7AE),
+              size: 36.0,
+            ),
+            label: 'Social',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.person_outlined,
+              color: Color(0xFFFFFFFF),
+              size: 36.0,
+            ),
+            icon: Icon(
+              Icons.person_outlined,
+              color: Color(0xFFB2B7AE),
+              size: 36.0,
+            ),
+            label: 'Profile',
+          ),
+        ],
+      ),
+      body: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: const Text('Page 1'),
         ),
-        body: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            child: const Text('Page 1'),
+        Container(
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              const Text(''),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Add your button action here
+                  },
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 48)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  child: const Text('New Itinerary +'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/placeItinerary');
+                  },
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 150)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  child: const Text('Itinerary 1'),
+                ),
+              ),
+            ],
           ),
-          Container(
-            alignment: Alignment.center,
-            child: const Text('Page 2'),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: const Text('Page 3'),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: const Text('Page 4'),
-          ),
-        ][currentPageIndex],
-      );
-    }
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: const Text('Page 3'),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: const Text('Page 4'),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: const Text('Place Itinerary Here'),
+        )
+      ][currentPageIndex],
+    );
   }
+}
+
+class PlaceItineraryPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Itinerary 1'),
+      ),
+      body: const Center(
+        child: Text('This will be Itinerary 1'),
+      ),
+    );
+  }
+}
+
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Login will go here'),
+      ),
+    );
+  }
+}
