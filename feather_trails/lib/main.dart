@@ -202,7 +202,7 @@ class Login extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.only(left: 50.0),
               child: Image.asset(
                 'assets/images/Feather_Trails_Logo_Trans.png',
                 width: 325,
@@ -216,7 +216,7 @@ class Login extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 25.0),
+                    padding: EdgeInsets.only(bottom: 50.0),
                     child: Text(
                       'FeatherTrails',
                       style: TextStyle(
@@ -225,7 +225,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 0.0),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Username',
