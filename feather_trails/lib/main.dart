@@ -221,7 +221,8 @@ class Login extends StatelessWidget {
                       'FeatherTrails',
                       style: TextStyle(
                         fontSize: 40.0,
-                        fontFamily: 'Handmade',
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Quicksand',
                       ),
                     ),
                   ),
