@@ -202,30 +202,46 @@ class Login extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(35.0),
+              padding: const EdgeInsets.all(20.0),
               child: Image.asset(
-                'assets/images/Feather_Trails_Logo.jpg',
-                width: 350,
-                height: 350,
+                'assets/images/Feather_Trails_Logo_Trans.png',
+                width: 325,
+                height: 325,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 0.0),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  hintText: 'Enter your username',
-                  prefixIcon: const Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
+                    child: Text(
+                      'FeatherTrails',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontFamily: 'Handmade',
+                      ),
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(10.0),
+                  const SizedBox(height: 12),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      hintText: 'Enter your username',
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             Padding(
@@ -266,8 +282,7 @@ class Login extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.0), // Adjust the left padding as needed
+                  padding: const EdgeInsets.only(left: 12.0),
                   child: TextButton(
                     onPressed: () {
                       // Handle the "Forgot Password" action, e.g., navigate to a recovery page.
@@ -276,9 +291,7 @@ class Login extends StatelessWidget {
                     child: const Text('Forgot Password?'),
                   ),
                 ),
-                const SizedBox(
-                    width:
-                        8.0), // Add some space between the "Forgot Password?" and "Sign Up" links
+                const SizedBox(width: 8.0),
                 Padding(
                   padding: const EdgeInsets.only(left: 160.0),
                   child: TextButton(
