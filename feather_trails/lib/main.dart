@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFFC93C13),
           secondary: const Color(0xFFE8D9CC),
-          background: Color.fromARGB(255, 255, 255, 255),
+          background: const Color.fromARGB(255, 255, 255, 255),
         ),
       ),
       initialRoute: '/Login',
@@ -229,7 +229,7 @@ class Login extends StatelessWidget {
                   labelText: 'Email',
                   hintText: 'Enter your email',
                   contentPadding: EdgeInsets.only(bottom: 8.0),
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email, color: Color(0xFF58636A)),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
@@ -246,7 +246,7 @@ class Login extends StatelessWidget {
                   labelText: 'Password',
                   hintText: 'Enter your password',
                   contentPadding: EdgeInsets.only(bottom: 12.0),
-                  prefixIcon: Icon(Icons.key),
+                  prefixIcon: Icon(Icons.key, color: Color(0xFF58636A)),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
@@ -257,16 +257,18 @@ class Login extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/');
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
-                  minimumSize: MaterialStateProperty.all(const Size(360, 48)),
+                  minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 48)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -281,7 +283,7 @@ class Login extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/ForgotPassword');
@@ -289,9 +291,9 @@ class Login extends StatelessWidget {
                     child: const Text('Forgot Password?'),
                   ),
                 ),
-                const SizedBox(width: 8.0),
+                const SizedBox(width: 16.0),
                 Padding(
-                  padding: const EdgeInsets.only(left: 150.0),
+                  padding: const EdgeInsets.only(left: 125.0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/SignUp');
@@ -316,13 +318,73 @@ class ForgotPassword extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You forgot your password!!'),
+            const Padding(
+              padding: EdgeInsets.only(top: 170.0),
+              child: Text(
+                'Forgot password?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  fontFamily: 'Quicksand',
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Enter the email associated with your account to request a password reset.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'Quicksand',
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.email, color: Color(0xFF58636A)),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/Login');
               },
-              child: const Text('Back to Login'),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                minimumSize: MaterialStateProperty.all(const Size(360, 48)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              child: const Text('Submit'),
+            ),
+            const SizedBox(height: 110.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Image.asset(
+                'assets/images/Feather_Trails_Logo_Trans.png',
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),
@@ -339,13 +401,118 @@ class SignUp extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Sign up here!'),
+            const Text(
+              'Welcome, ',
+              style: TextStyle(
+                fontSize: 40.0,
+                fontFamily: 'Quicksand',
+              ),
+            ),
+            RichText(
+              text: const TextSpan(
+                text: 'Traveler',
+                style: TextStyle(
+                  color: Color(0xFFDE7728),
+                  fontSize: 40.0,
+                  fontFamily: 'Quicksand',
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  hintText: 'Enter your username',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.person, color: Color(0xFF58636A)),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.email, color: Color(0xFF58636A)),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.key, color: Color(0xFF58636A)),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Re-enter Password',
+                  hintText: 'Re-enter your password',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.key, color: Color(0xFF58636A)),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF58636A)),
+                  ),
+                ),
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/Login');
               },
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                minimumSize: MaterialStateProperty.all(const Size(360, 48)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
               child: const Text('Back to Login'),
+            ),
+            const SizedBox(height: 50.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Image.asset(
+                'assets/images/Feather_Trails_Logo_Trans.png',
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),
