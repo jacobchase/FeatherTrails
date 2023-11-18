@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFFC93C13),
           secondary: const Color(0xFFE8D9CC),
-          background: const Color.fromARGB(0, 255, 255, 255),
+          background: Color.fromARGB(255, 255, 255, 255),
         ),
       ),
       initialRoute: '/Login',
@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(),
         '/placeItinerary': (context) => PlaceItineraryPage(),
         '/Login': (context) => Login(),
+        '/ForgotPassword': (context) => ForgotPassword(),
+        '/SignUp': (context) => SignUp(),
       },
     );
   }
@@ -209,74 +211,70 @@ class Login extends StatelessWidget {
                 height: 325,
               ),
             ),
-            const SizedBox(height: 0.0),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 50.0),
-                    child: Text(
-                      'FeatherTrails',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Quicksand',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 0.0),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Username',
-                      hintText: 'Enter your username',
-                      prefixIcon: const Icon(Icons.person),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ],
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                'FeatherTrails',
+                style: TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(25.0),
               child: TextField(
-                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
+                  contentPadding: EdgeInsets.only(bottom: 8.0),
+                  prefixIcon: Icon(Icons.email),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(25.0),
+              child: TextField(
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter your password',
-                  prefixIcon: const Icon(Icons.key),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                  contentPadding: EdgeInsets.only(bottom: 12.0),
+                  prefixIcon: Icon(Icons.key),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(10.0),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(360, 48)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  minimumSize: MaterialStateProperty.all(const Size(360, 48)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
                 ),
+                child: const Text('Sign in'),
               ),
-              child: const Text('Sign in'),
             ),
             const SizedBox(height: 10),
             Row(
@@ -286,24 +284,68 @@ class Login extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 12.0),
                   child: TextButton(
                     onPressed: () {
-                      // Handle the "Forgot Password" action, e.g., navigate to a recovery page.
-                      // Navigator.pushNamed(context, '/forgotPassword');
+                      Navigator.pushNamed(context, '/ForgotPassword');
                     },
                     child: const Text('Forgot Password?'),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Padding(
-                  padding: const EdgeInsets.only(left: 160.0),
+                  padding: const EdgeInsets.only(left: 150.0),
                   child: TextButton(
                     onPressed: () {
-                      // Handle the "Sign Up" action, e.g., navigate to a registration page.
-                      // Navigator.pushNamed(context, '/signUp');
+                      Navigator.pushNamed(context, '/SignUp');
                     },
                     child: const Text('Sign up'),
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ForgotPassword extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('You forgot your password!!'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/Login');
+              },
+              child: const Text('Back to Login'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SignUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Sign up here!'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/Login');
+              },
+              child: const Text('Back to Login'),
             ),
           ],
         ),
