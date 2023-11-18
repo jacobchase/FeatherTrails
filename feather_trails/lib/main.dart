@@ -10,12 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Feather Trails',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFFC93C13),
-          secondary: const Color(0xFFE8D9CC),
-          background: const Color.fromARGB(255, 255, 255, 255),
-        ),
-      ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color(0xFFC93C13),
+            secondary: const Color(0xFFE8D9CC),
+            background: const Color.fromARGB(255, 255, 255, 255),
+          ),
+          textTheme:
+              const TextTheme(bodyLarge: TextStyle(fontFamily: 'Quicksand'))),
       initialRoute: '/Login',
       routes: {
         '/': (context) => MyHomePage(),
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/Login': (context) => Login(),
         '/ForgotPassword': (context) => ForgotPassword(),
         '/SignUp': (context) => SignUp(),
+        '/NewItinerary': (context) => NewItinerary(),
       },
     );
   }
@@ -119,11 +121,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add your button action here
+                    Navigator.pushNamed(context, '/NewItinerary');
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                        const Size(double.infinity, 48)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFFC93C13)),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all(const Size(360, 48)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -140,11 +145,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/placeItinerary');
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                        const Size(double.infinity, 150)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFFC93C13)),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all(const Size(
+                        double.infinity, 130)), // Adjust the size here
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                     ),
                   ),
@@ -288,17 +297,25 @@ class Login extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, '/ForgotPassword');
                     },
-                    child: const Text('Forgot Password?'),
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16.0),
                 Padding(
-                  padding: const EdgeInsets.only(left: 125.0),
+                  padding: const EdgeInsets.only(left: 115.0),
                   child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/SignUp');
                     },
-                    child: const Text('Sign up'),
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
@@ -502,7 +519,7 @@ class SignUp extends StatelessWidget {
                   ),
                 ),
               ),
-              child: const Text('Back to Login'),
+              child: const Text('Sign up'),
             ),
             const SizedBox(height: 50.0),
             Padding(
@@ -512,6 +529,147 @@ class SignUp extends StatelessWidget {
                 width: 150,
                 height: 150,
                 fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NewItinerary extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('New Itinerary'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 8.0),
+            const Text(
+              'Enter Itinerary Name:',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Quicksand',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.black)),
+              ),
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Itinerary Name',
+                  hintStyle: TextStyle(
+                    color: Color(0xFF58636A),
+                    fontFamily: 'Quicksand',
+                    fontWeight: FontWeight.bold,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 115.0),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Enter Start and End of Trip:',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Quicksand',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.black)),
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Start',
+                        hintStyle: TextStyle(
+                          color: Color(0xFF58636A),
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(left: 60.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                const Text(
+                  '-',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.black)),
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        hintText: 'End',
+                        hintStyle: TextStyle(
+                          color: Color(0xFF58636A),
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.only(left: 60.0, bottom: 8.0),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+                height:
+                    35.0), // Add some space between the Row and the new Text widget
+            const Text(
+              'Recommended Stops:', // Your additional text here
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Add your logic to handle the "Create New" button press
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 48)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                child: const Text('Create New'),
               ),
             ),
           ],
