@@ -5,6 +5,7 @@ class ProfilePage extends StatefulWidget {
   final PageStorageBucket bucket;
 
   const ProfilePage({required this.bucket});
+
   @override
   ProfilePageState createState() => ProfilePageState();
 }
@@ -17,44 +18,72 @@ class ProfilePageState extends State<ProfilePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return PageStorage(
-      bucket: widget.bucket,
-      key: const PageStorageKey('ProfilePage'),
-      child: Scaffold(
-        body: Container(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/Login');
-                },
-                child: const Text('Logout'),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(58.0),
+              child: CircleAvatar(
+                radius: 58,
+                backgroundImage: NetworkImage(
+                  'https://www.thingsguyana.com/wp-content/uploads/2020/01/1649px-Toco_Toucan_Ramphastos_toco_in_Papaya_Tree_Carica_papaya_28997424215-scaled.jpg',
+                  scale: 210,
+                ),
               ),
-              // You can add additional profile-related content here
-            ],
-          ),
+            ),
+            const Text(
+              '@user0000',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  ),
+                ),
+                child: const Text('Account'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  ),
+                ),
+                child: const Text('Settings'),
+              ),
+            ),
+            // ... Add other buttons as needed
+          ],
         ),
-        bottomNavigationBar: my_nav_bar.NavigationBar(
-          selectedIndex: 3, // Set the appropriate index for the ProfilePage
-          onDestinationSelected: (int index) {
-            switch (index) {
-              case 0:
-                Navigator.pushNamed(context, '/');
-                break;
-              case 1:
-                Navigator.pushNamed(context, '/itineraryPage');
-                break;
-              case 2:
-                Navigator.pushNamed(context, '/socialPage');
-                break;
-              case 3:
-                // Do something for index 3 if needed (already on ProfilePage)
-                break;
+      ),
+      bottomNavigationBar: my_nav_bar.NavigationBar(
+        selectedIndex: 3,
+        onDestinationSelected: (int index) {
+          setState(() {
+            if (index == 0) {
+              Navigator.pushNamed(context, '/');
             }
-          },
-        ),
+            if (index == 1) {
+              Navigator.pushNamed(context, '/itineraryPage');
+            }
+            if (index == 2) {
+              Navigator.pushNamed(context, '/socialPage');
+            }
+            if (index == 3) {
+              Navigator.pushNamed(context, '/profilePage');
+            }
+          });
+        },
       ),
     );
   }
