@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
+import '../main.dart' show NewItinerary;
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
+  final BuildContext context;
 
-  Locations({required this.placesList});
+  Locations({required this.placesList, required this.context});
   
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,19 @@ class Locations extends StatelessWidget {
         ),
         color: Color(0xB3FFFFFF),
       ),
-      child: ListView(
-        padding: const EdgeInsets.all(30), 
-        children: placesList.map((place) {
-          return locationCard(place);
-        }).toList(),
+      child: ListView.separated(
+        padding: const EdgeInsets.all(30),
+        itemCount: placesList.length,
+        itemBuilder: (context, index) {
+          return locationCard(placesList[index]);
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 30); // Adjust the height as needed
+        },
       ),
     );
   }
+
 
   Widget locationCard(PlacesSearchResult place) {
     String photoReference = place.photos[0].photoReference;
@@ -53,7 +60,13 @@ class Locations extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 const Icon(Icons.location_on_outlined),
-                Text(place.name),
+                Flexible(
+                  child: Text(
+                    place.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2, // Adjust as needed
+                  ),
+                ),
               ]
             ),
           ),
@@ -78,7 +91,14 @@ class Locations extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               RawMaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewItinerary(selectedPlace: place),
+                    ),
+                  );
+                },
                 elevation: 0,
                 fillColor: const Color(0xFFE8D9CC),
                 constraints: const BoxConstraints.tightFor(

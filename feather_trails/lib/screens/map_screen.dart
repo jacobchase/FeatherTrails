@@ -22,13 +22,29 @@ class _MapScreenState extends State<MapScreen> {
   List<PlacesSearchResult> placesList = [];
   final TextEditingController _searchController = TextEditingController();
 
-  Future<void> searchPlaces(String query, LatLng location) async {
+  Future<void> searchNearby(String query, LatLng location) async {
     try {
       final result = await _places.searchNearbyWithRadius(
         Location(lat: 30.4145, lng: -91.1783),
         5000,
-        type: "restaurant",
         keyword: query,
+      );
+      if (result.status == "OK") {
+        setState(() {
+          placesList = result.results;
+        });
+      } else {
+        throw Exception(result.errorMessage);
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  Future<void> searchPlaces(String query) async {
+    try {
+      final result = await _places.searchByText(
+        query,
       );
       if (result.status == "OK") {
         setState(() {
@@ -44,10 +60,14 @@ class _MapScreenState extends State<MapScreen> {
 
   bool showLocations = false;
 
-  void submitSearch() {
+  void submitSearch() async {
     String query = _searchController.text.trim();
-    if (query.isEmpty) {
-      searchPlaces(query, _center);
+    if (query.isNotEmpty) {
+      if (query.toLowerCase().contains("near me") || query.toLowerCase().contains("nearby")) {
+        await searchNearby(query, _center); 
+      } else {
+        await searchPlaces(query);
+      }
       if (placesList.isNotEmpty) {
         setState(() {
           showLocations = true;
@@ -80,17 +100,14 @@ class _MapScreenState extends State<MapScreen> {
                 borderRadius: BorderRadius.circular(50),
               ),
               child: TextField(
+                controller: _searchController,
                 decoration: const InputDecoration(
                   hintText: 'Where do you want to go?',
                   prefixIcon: Icon(Icons.location_on_outlined, color: Colors.black),
                   border: InputBorder.none,
                 ),
-                onSubmitted: (value) async {
-                  await searchPlaces(value, _center);
-                  for (var place in placesList) {
-                    print("Name: ${place.name}, Vicinity: ${place.vicinity}");
-                  }
-                  showLocations = true;
+                onSubmitted: (value) {
+                  submitSearch();
                 },
               ),
             ),
@@ -102,7 +119,10 @@ class _MapScreenState extends State<MapScreen> {
             bottom: 0.0,
             left: 0.0,
             right: 0.0,
-            child: Locations(placesList: placesList),
+            child: Locations(
+                placesList: placesList,
+                context: context,
+              ),
           ),
       ],
     );
