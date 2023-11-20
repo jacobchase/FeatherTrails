@@ -21,6 +21,7 @@ class _MapScreenState extends State<MapScreen> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
+            padding: const EdgeInsets.only(bottom: 90.0),
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
               target: _center,

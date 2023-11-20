@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/map_screen.dart';
+import 'screens/itinerary/itineraries.dart';
+import 'screens/new_itinerary.dart';
+import 'screens/itinerary/itindummy.dart';
+import 'screens/itinerary/itin_cover.dart';
+import 'screens/itinerary/itin_item.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -8,9 +15,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Feather Trails',
       theme: ThemeData(
+          canvasColor: Colors.transparent,
 
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: const Color(0xFFC93C13),
@@ -18,12 +27,14 @@ class MyApp extends StatelessWidget {
             background: const Color.fromARGB(255, 255, 255, 255),
           ),
           textTheme:
-              const TextTheme(bodyLarge: TextStyle(fontFamily: 'Quicksand'))),
+              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme,
+          ),
+      ),
 
       initialRoute: '/Login',
       routes: {
         '/': (context) => MyHomePage(),
-        '/placeItinerary': (context) => PlaceItineraryPage(),
+        '/placeItinerary': (context) => PlaceItineraryPage(itinList:[]),
         '/Login': (context) => Login(),
         '/ForgotPassword': (context) => ForgotPassword(),
         '/SignUp': (context) => SignUp(),
@@ -44,7 +55,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
+      extendBody: true,
+    bottomNavigationBar: Container(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(6.0),
+            topRight: Radius.circular(6.0),
+          ),
+        ),
+        child: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -110,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+      ),
       body: <Widget>[
         Container(
           alignment: Alignment.center,
@@ -117,54 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: Column(
-            children: [
-              const Text(''),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/NewItinerary');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFFC93C13)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    minimumSize: MaterialStateProperty.all(const Size(360, 48)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                  child: const Text('New Itinerary +'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/placeItinerary');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFFC93C13)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    minimumSize: MaterialStateProperty.all(const Size(
-                        double.infinity, 130)), // Adjust the size here
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                  ),
-                  child: const Text('Itinerary 1'),
-                ),
-              ),
-            ],
-          ),
+          child: PlaceItineraryPage(itinList: [],),
         ),
         Container(
           alignment: Alignment.center,
@@ -183,10 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       scale: 210),
                 ),
               ),
-              const Text(
+               Text(
                 '@user0000',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: GoogleFonts.quicksand(
+                  fontSize: 24.0, fontWeight: FontWeight.bold,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -263,20 +239,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class PlaceItineraryPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Itinerary 1'),
-      ),
-      body: const Center(
-        child: Text('This will be Itinerary 1'),
-      ),
-    );
-  }
-}
-
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -293,43 +255,54 @@ class Login extends StatelessWidget {
                 height: 325,
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 8.0),
               child: Text(
                 'FeatherTrails',
-                style: TextStyle(
+                style: GoogleFonts.quicksand(
                   fontSize: 40.0,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Quicksand',
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(25.0),
               child: TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  labelStyle:TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
                   hintText: 'Enter your email',
+                  hintStyle:TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
                   contentPadding: EdgeInsets.only(bottom: 8.0),
                   prefixIcon: Icon(Icons.email, color: Color(0xFF58636A)),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(25.0),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
               child: TextField(
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle:TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
                   hintText: 'Enter your password',
+                  hintStyle:TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
                   contentPadding: EdgeInsets.only(bottom: 12.0),
                   prefixIcon: Icon(Icons.key, color: Color(0xFF58636A)),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
                   focusedBorder: UnderlineInputBorder(
@@ -353,11 +326,17 @@ class Login extends StatelessWidget {
                       const Size(double.infinity, 48)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(6.0),
                     ),
                   ),
                 ),
-                child: const Text('Sign in'),
+                child: Text(
+                  'Sign in',
+                  style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.bold
+                  ),
+
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -611,143 +590,3 @@ class SignUp extends StatelessWidget {
   }
 }
 
-class NewItinerary extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Itinerary'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 8.0),
-            const Text(
-              'Enter Itinerary Name:',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Quicksand',
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.black)),
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Itinerary Name',
-                  hintStyle: TextStyle(
-                    color: Color(0xFF58636A),
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.bold,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 115.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Enter Start and End of Trip:',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Quicksand',
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Start',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF58636A),
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 60.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                const Text(
-                  '-',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'End',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF58636A),
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.only(left: 60.0, bottom: 8.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-                height:
-                    35.0), // Add some space between the Row and the new Text widget
-            const Text(
-              'Recommended Stops:', // Your additional text here
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Add your logic to handle the "Create New" button press
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 48)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-                child: const Text('Create New'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
