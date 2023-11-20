@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'screens/map_screen.dart';
 
 void main() {
@@ -540,8 +541,19 @@ class SignUp extends StatelessWidget {
 }
 
 class NewItinerary extends StatelessWidget {
+  final PlacesSearchResult? selectedPlace;
+  NewItinerary({this.selectedPlace});
+
   @override
   Widget build(BuildContext context) {
+    String imageUrl = '';
+
+    // Check if selectedPlace is not null and has photos
+    if (selectedPlace != null && selectedPlace!.photos.isNotEmpty) {
+      String photoReference = selectedPlace!.photos[0].photoReference;
+      imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Itinerary'),
@@ -637,9 +649,47 @@ class NewItinerary extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-                height:
-                    35.0), // Add some space between the Row and the new Text widget
+
+            const SizedBox(height: 30.0),
+
+            if (selectedPlace != null) // Conditionally load the Location widget if navigated from MapScreen
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: const Color(0xFFE8D9CC),
+                ),
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(6),
+                        bottomLeft: Radius.circular(6),
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        width: 130,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          selectedPlace!.name,
+                          style: const TextStyle(
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            const SizedBox(height: 30.0), // Add some space between the Row and the new Text widget
+
             const Text(
               'Recommended Stops:', // Your additional text here
               style: TextStyle(
@@ -649,6 +699,7 @@ class NewItinerary extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             const SizedBox(height: 20.0),
             const Spacer(),
             Padding(
