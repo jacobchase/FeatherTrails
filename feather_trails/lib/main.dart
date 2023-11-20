@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/map_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: <Widget>[
         Container(
           alignment: Alignment.center,
-          child: const Text('Page 1'),
+          child: MapScreen(),
         ),
         Container(
           alignment: Alignment.center,
