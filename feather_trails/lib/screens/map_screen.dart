@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:feather_trails/widgets/location_results.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -11,50 +13,98 @@ class _MapScreenState extends State<MapScreen> {
 
   final LatLng _center = const LatLng(30.4145, -91.1783);
 
+  final _places = GoogleMapsPlaces(apiKey: 'AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw');
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
+  List<PlacesSearchResult> placesList = [];
+  final TextEditingController _searchController = TextEditingController();
+
+  Future<void> searchPlaces(String query, LatLng location) async {
+    try {
+      final result = await _places.searchNearbyWithRadius(
+        Location(lat: 30.4145, lng: -91.1783),
+        5000,
+        type: "restaurant",
+        keyword: query,
+      );
+      if (result.status == "OK") {
+        setState(() {
+          placesList = result.results;
+        });
+      } else {
+        throw Exception(result.errorMessage);
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  bool showLocations = false;
+
+  void submitSearch() {
+    String query = _searchController.text.trim();
+    if (query.isEmpty) {
+      searchPlaces(query, _center);
+      if (placesList.isNotEmpty) {
+        setState(() {
+          showLocations = true;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          GoogleMap(
-            padding: const EdgeInsets.only(bottom: 90.0),
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 11.0,
-            ),
+    return Stack(
+      children: <Widget>[
+        GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
           ),
-          Positioned(
-            top: 50.0,
-            left: 15.0,
-            right: 15.0,
-            child: Opacity(
-              opacity: 0.9,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
+        ),
+        Positioned(
+          top: 50.0,
+          left: 15.0,
+          right: 15.0,
+          child: Opacity(
+            opacity: 0.7,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Where do you want to go?',
+                  prefixIcon: Icon(Icons.location_on_outlined, color: Colors.black),
+                  border: InputBorder.none,
                 ),
-                child: TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Where do you want to go?',
-                    prefixIcon: Icon(Icons.location_on_outlined, color: Colors.grey),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (value) {
-                    // Handle search here
-                  },
-                ),
+                onSubmitted: (value) async {
+                  await searchPlaces(value, _center);
+                  for (var place in placesList) {
+                    print("Name: ${place.name}, Vicinity: ${place.vicinity}");
+                  }
+                  showLocations = true;
+                },
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        if (showLocations) // Conditionally load the Locations widget
+          Positioned(
+            top: 120.0,
+            bottom: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: Locations(placesList: placesList),
+          ),
+      ],
     );
   }
 }
