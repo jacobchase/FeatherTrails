@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class Locations extends StatelessWidget {
+  final List<PlacesSearchResult> placesList;
+
+  Locations({required this.placesList});
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,16 +18,16 @@ class Locations extends StatelessWidget {
       ),
       child: ListView(
         padding: const EdgeInsets.all(30), 
-        children: <Widget>[
-              locationCard('Blue Rouge Aquarium', 'https://lh5.googleusercontent.com/p/AF1QipM_lQSo7DjW0XmS9jdulL8Tp84ej2HuUk7ygUw2=w408-h306-k-no'),
-              locationCard('BREC\'s Baton Rouge Zoo', 'https://lh5.googleusercontent.com/p/AF1QipM_lQSo7DjW0XmS9jdulL8Tp84ej2HuUk7ygUw2=w408-h306-k-no'),
-              locationCard('Oak Hills Place', 'https://lh5.googleusercontent.com/p/AF1QipM_lQSo7DjW0XmS9jdulL8Tp84ej2HuUk7ygUw2=w408-h306-k-no'),
-        ],
+        children: placesList.map((place) {
+          return locationCard(place);
+        }).toList(),
       ),
     );
   }
 
-  Widget locationCard(String locationName, String imageUrl) {
+  Widget locationCard(PlacesSearchResult place) {
+    String photoReference = place.photos[0].photoReference;
+    String imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
     return Stack(
       alignment: Alignment.bottomLeft,
       children: <Widget>[
@@ -48,7 +53,7 @@ class Locations extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 const Icon(Icons.location_on_outlined),
-                Text(locationName),
+                Text(place.name),
               ]
             ),
           ),
