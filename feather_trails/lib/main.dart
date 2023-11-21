@@ -8,6 +8,7 @@ import 'package:feather_trails/login_page.dart';
 import 'package:feather_trails/forgot_password.dart';
 import 'package:feather_trails/sign_up.dart';
 import 'package:feather_trails/new_itinerary.dart';
+import 'package:feather_trails/map_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/Login',
       routes: {
-        '/': (context) => MyHomePage(bucket: bucket),
+        '/': (context) => MapScreen(bucket: bucket),
         '/placeItinerary': (context) => PlaceItineraryPage(bucket: bucket),
         '/Login': (context) => LoginPage(bucket: bucket),
         '/ForgotPassword': (context) => ForgotPasswordPage(bucket: bucket),
