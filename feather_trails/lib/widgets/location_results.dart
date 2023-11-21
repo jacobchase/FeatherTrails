@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import '../main.dart' show NewItinerary;
 import '../main.dart' show AddtoItinerary;
+import '../screens/map_screen.dart';
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
   final BuildContext context;
 
 
-  Locations({required this.placesList, required this.context});
+  Locations({required this.placesList, required this.context, });
   
   @override
   Widget build(BuildContext context) {

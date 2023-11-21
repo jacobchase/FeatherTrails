@@ -18,8 +18,15 @@ class Itinerary{
   List<ItineraryEntry> entries;
   String startDate;
   String endDate;
+  String numOfPlaces;
 
-  Itinerary({required this.name, required this.entries, required this.startDate, required this.endDate});
+  Itinerary({
+    required this.name,
+    required this.entries,
+    required this.startDate,
+    required this.endDate,
+    required this.numOfPlaces
+  });
 
 }
 

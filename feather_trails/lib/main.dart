@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'screens/map_screen.dart';import 'widgets/itinerary_data.dart';
+import 'screens/map_screen.dart';
+import 'widgets/itinerary_data.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => ItineraryState()),
+    ],
+    child:MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -39,8 +47,7 @@ class MyApp extends StatelessWidget {
         '/SignUp': (context) => SignUp(),
         '/NewItinerary': (context) => NewItinerary(),
         '/AddtoItinerary': (context) => AddtoItinerary(),
-
-
+        '/ShowEntries': (context) => ShowEntries(),
       },
     );
   }
@@ -140,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: PlaceItineraryPage(itinerary: Itinerary(name: "Empty", entries: [], startDate: "Not Set", endDate: "Not Set")),
+          child: PlaceItineraryPage(itinerary: Itinerary(name: "Family Trip", entries: [], startDate: "11/11/11", endDate: "11/11/11", numOfPlaces: "11")),
         ),
         Container(
           alignment: Alignment.center,
@@ -600,6 +607,7 @@ class PlaceItineraryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Itinerary?> itineraries = context.read<ItineraryState>().itineraries;
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -626,6 +634,18 @@ class PlaceItineraryPage extends StatelessWidget {
         child: itinerary != null
             ? Align(
           alignment: Alignment.topLeft,
+          child: ElevatedButton(
+            onPressed: (){
+              Navigator.push(
+                  context, MaterialPageRoute(
+                builder: (context) => ShowEntries(),
+              ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
           child: Container(
             margin: const EdgeInsets.all(8.0),
             padding: const EdgeInsets.all(8.0),
@@ -634,6 +654,7 @@ class PlaceItineraryPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
             children:[
               const Padding(
                 padding: EdgeInsets.only(right: 8.0),
@@ -642,12 +663,34 @@ class PlaceItineraryPage extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              Text(
-                  '${itinerary!.name ?? "Itinerary is null"}\n${itinerary!.startDate ?? "Itinerary is null"} - ${itinerary!.startDate ?? "Itinerary is null"}',
+             Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${itinerary!.name ?? "Itinerary is null"}',
+                    style: TextStyle(fontSize: 24.0, color: Colors.black),
+                  ),
+                  Text(
+                    '${itinerary!.startDate ?? "Itinerary is null"} - ${itinerary!.endDate ?? "Itinerary is null"}',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black
+                    ),
+                  ),
+                  Text(
+                    '${itinerary!.entries?.isNotEmpty == true ? itinerary!.entries!.first.location : "Not Available"} - ${itinerary!.entries?.isNotEmpty == true ? itinerary!.entries!.last.location : "Not Available"}'  ,
+                    style: TextStyle(fontSize: 20.0, color: Colors.black),
+                  ),
+                  Text(
+                    'Places: ${itinerary!.numOfPlaces ?? "Itinerary is null"}'  ,
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
+                ],
+              )
 
-              style: TextStyle(fontSize: 24.0),
-            ),
             ],
+          ),
           ),
           ),
         )
@@ -673,190 +716,198 @@ class NewItinerary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageUrl = '';
+    return Consumer<ItineraryState>(
+      builder: (context, itineraryState,_)
+    {
+      String imageUrl = '';
 
-    // Check if selectedPlace is not null and has photos
-    if (selectedPlace != null && selectedPlace!.photos.isNotEmpty) {
-      String photoReference = selectedPlace!.photos[0].photoReference;
-      imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
-    }
+      // Check if selectedPlace is not null and has photos
+      if (selectedPlace != null && selectedPlace!.photos.isNotEmpty) {
+        String photoReference = selectedPlace!.photos[0].photoReference;
+        imageUrl =
+        'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
+      }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Itinerary'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 8.0),
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.black)),
-              ),
-              child: TextField(
-                controller: itineraryNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Itinerary Name',
-                  hintStyle: TextStyle(
-                    color: Color(0xFF58636A),
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.bold,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 115.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    child: TextField(
-                      controller: startDateController,
-                      decoration: const InputDecoration(
-                        hintText: 'Start',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF58636A),
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 60.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                const Text(
-                  '-',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    child: TextField(
-                      controller: endDateController,
-                      decoration: const InputDecoration(
-                        hintText: 'End',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF58636A),
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.only(left: 60.0, bottom: 8.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 30.0),
-
-            if (selectedPlace != null) // Conditionally load the Location widget if navigated from MapScreen
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: const Color(0xFFE8D9CC),
-                ),
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        bottomLeft: Radius.circular(6),
-                      ),
-                      child: Image.network(
-                        imageUrl,
-                        width: 130,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          selectedPlace!.name,
-                          style: const TextStyle(
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-            const SizedBox(height: 30.0), // Add some space between the Row and the new Text widget
-
-            const Text(
-              'Recommended Stops:', // Your additional text here
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 20.0),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  createNewItinerary(context);
-                  Navigator.pushNamed(context, '/placeItinerary', arguments: newItinerary);
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 48)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-                child: const Text('Create New'),
-              ),
-            ),
-          ],
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('New Itinerary'),
         ),
-      ),
-    );
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8.0),
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.black)),
+                ),
+                child: TextField(
+                  controller: itineraryNameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Itinerary Name',
+                    hintStyle: TextStyle(
+                      color: Color(0xFF58636A),
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 115.0),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16.0),
+
+              const SizedBox(height: 8.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      child: TextField(
+                        controller: startDateController,
+                        decoration: const InputDecoration(
+                          hintText: 'Start',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF58636A),
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 60.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Text(
+                    '-',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      child: TextField(
+                        controller: endDateController,
+                        decoration: const InputDecoration(
+                          hintText: 'End',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF58636A),
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding:
+                          EdgeInsets.only(left: 60.0, bottom: 8.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 30.0),
+
+              if (selectedPlace !=
+                  null) // Conditionally load the Location widget if navigated from MapScreen
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: const Color(0xFFE8D9CC),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                          bottomLeft: Radius.circular(6),
+                        ),
+                        child: Image.network(
+                          imageUrl,
+                          width: 130,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            selectedPlace!.name,
+                            style: const TextStyle(
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              const SizedBox(height: 30.0),
+              // Add some space between the Row and the new Text widget
+
+              const Text(
+                'Recommended Stops:', // Your additional text here
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.black,
+                  fontFamily: 'Quicksand',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 20.0),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    createNewItinerary(context);
+                    Navigator.pushNamed(
+                        context, '/placeItinerary', arguments: newItinerary);
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(const Color(0xFFC93C13)),
+                    foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 48)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  child: const Text('Create New'),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+      );
+    });
   }
 
   Itinerary? newItinerary;
 
-  void createNewItinerary(BuildContext context) {
+  void createNewItinerary(BuildContext context) async{
     String itineraryName = itineraryNameController.text;
     String startDateText = startDateController.text;
     String endDateText = endDateController.text;
 
-
     ItineraryEntry itineraryEntry = ItineraryEntry(
       placeName: selectedPlace!.name,
-      location: selectedPlace!.placeId, //not sure how to get location using the selectedPlace thing
-      date: "No date set", //FIX
+      location: 'null', //probably doesn't work ngl
+      date: "No date set", //also doesn't work
       );
 
       newItinerary = Itinerary(
@@ -864,13 +915,31 @@ class NewItinerary extends StatelessWidget {
       startDate: startDateText,
       endDate: endDateText,
       entries: [itineraryEntry],
+      numOfPlaces: '1',
     );
 
-    print('Creating the fucking itinerary');
+
+    print('Creating the itinerary');
+
+    ItineraryState itineraryState = Provider.of<ItineraryState>(context, listen: false);
+    itineraryState.addItinerary(newItinerary);
 
     Navigator.pushNamed(context, '/placeItinerary', arguments: newItinerary);
 
   }
+}
+
+class ItineraryState extends ChangeNotifier{
+  List<Itinerary?> _itineraries = [];
+
+  List<Itinerary?> get itineraries => _itineraries;
+
+  void addItinerary(Itinerary? itinerary) {
+    _itineraries.add(itinerary);
+    notifyListeners();
+    print('Added new itinerary: ${itinerary?.name ?? "null"}');
+  }
+
 }
 
 
@@ -968,4 +1037,127 @@ class AddtoItinerary extends StatelessWidget {
   }
 }
 
+// SAMPLE FOR DEMO PURPOSES
+class ShowEntries extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text(
+            'Family Trip',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Row(
+                children: [
+                  IconButton(
+                      icon:Icon(Icons.delete),
+                      onPressed:() {
 
+                      }
+                  )
+                ]
+            )
+          ]
+      ),
+      body: Center(
+        child:
+        Align(
+          alignment: Alignment.topLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8D9CC),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'January 1, 1990',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '0 places',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10), // Add some space between the two boxes
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8D9CC),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'January 2, 1990',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '0 places',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+      ),
+
+
+    );
+
+  }
+}
