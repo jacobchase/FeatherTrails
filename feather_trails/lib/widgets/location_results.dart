@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import '../main.dart' show NewItinerary;
+import '../main.dart' show AddtoItinerary;
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
   final BuildContext context;
+
 
   Locations({required this.placesList, required this.context});
   
@@ -77,7 +79,14 @@ class Locations extends StatelessWidget {
           child: Column(
             children: <Widget>[
               RawMaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => AddtoItinerary(selectedPlace: place),
+                    ),
+                  );
+                },
                 elevation: 0,
                 fillColor: const Color(0xFFE8D9CC),
                 constraints: const BoxConstraints.tightFor(

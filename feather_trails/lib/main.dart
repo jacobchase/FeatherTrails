@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'screens/map_screen.dart';
-import 'screens/itinerary/itineraries.dart';
-
-
-
+import 'screens/map_screen.dart';import 'widgets/itinerary_data.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,11 +29,14 @@ class MyApp extends StatelessWidget {
       initialRoute: '/Login',
       routes: {
         '/': (context) => MyHomePage(),
-        '/placeItinerary': (context) => PlaceItineraryPage(),
+        '/placeItinerary': (context) => PlaceItineraryPage(itinerary: null),
         '/Login': (context) => Login(),
         '/ForgotPassword': (context) => ForgotPassword(),
         '/SignUp': (context) => SignUp(),
-        '/NewItinerary': (context) => NewItinerary(),
+        '/NewItinerary': (context) => NewItinerary(onItineraryCreated: (itinerary) {}),
+        '/AddtoItinerary': (context) => AddtoItinerary(),
+
+
       },
     );
   }
@@ -137,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: PlaceItineraryPage(),
+          child: PlaceItineraryPage(itinerary: Itinerary(name: "Empty", entries: [])),
         ),
         Container(
           alignment: Alignment.center,
@@ -589,11 +588,57 @@ class SignUp extends StatelessWidget {
   }
 }
 
-//<<<<<<< HEAD
-//=======
+class PlaceItineraryPage extends StatelessWidget {
+
+  final Itinerary? itinerary;
+
+  PlaceItineraryPage({required this.itinerary});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text(
+            'Itineraries',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Row(
+                children: [
+                  IconButton(
+                      icon:Icon(Icons.bookmark_border),
+                      onPressed:() {
+
+                      }
+                  )
+                ]
+            )
+          ]
+      ),
+      body: Center(
+        child: itinerary != null
+            ? Text('Itinerary: ${itinerary?.name ?? "Name not available"}')
+            : Text('No itinerary selected'),
+      ),
+
+    );
+  }
+}
+
 class NewItinerary extends StatelessWidget {
   final PlacesSearchResult? selectedPlace;
+
+  final TextEditingController itineraryNameController = TextEditingController();
+  final TextEditingController startDateController = TextEditingController();
+  final TextEditingController endDateController = TextEditingController();
+
+  //final Function(Itinerary) onItineraryCreated;
+
   NewItinerary({this.selectedPlace});
+
 
   @override
   Widget build(BuildContext context) {
@@ -615,21 +660,13 @@ class NewItinerary extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 8.0),
-            const Text(
-              'Enter Itinerary Name:',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Quicksand',
-              ),
-            ),
-            const SizedBox(height: 8.0),
             Container(
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.black)),
               ),
-              child: const TextField(
-                decoration: InputDecoration(
+              child: TextField(
+                controller: itineraryNameController,
+                decoration: const InputDecoration(
                   hintText: 'Itinerary Name',
                   hintStyle: TextStyle(
                     color: Color(0xFF58636A),
@@ -642,14 +679,7 @@ class NewItinerary extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Enter Start and End of Trip:',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Quicksand',
-              ),
-            ),
+
             const SizedBox(height: 8.0),
             Row(
               children: [
@@ -658,8 +688,9 @@ class NewItinerary extends StatelessWidget {
                     decoration: const BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.black)),
                     ),
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: startDateController,
+                      decoration: const InputDecoration(
                         hintText: 'Start',
                         hintStyle: TextStyle(
                           color: Color(0xFF58636A),
@@ -683,8 +714,9 @@ class NewItinerary extends StatelessWidget {
                     decoration: const BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.black)),
                     ),
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: endDateController,
+                      decoration: const InputDecoration(
                         hintText: 'End',
                         hintStyle: TextStyle(
                           color: Color(0xFF58636A),
@@ -757,7 +789,8 @@ class NewItinerary extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your logic to handle the "Create New" button press
+                  createNewItinerary();
+                  Navigator.pushNamed(context, '/placeNewItinerary');
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -780,5 +813,158 @@ class NewItinerary extends StatelessWidget {
       ),
     );
   }
+  void createNewItinerary() {
+    String itineraryName = itineraryNameController.text;
+    String startDateText = startDateController.text;
+    String endDateText = endDateController.text;
+
+    ItineraryEntry itineraryEntry = ItineraryEntry(
+      placeName: selectedPlace!.name,
+      location: selectedPlace!.placeId,
+      date: DateTime.now(), //FIX
+      );
+
+      Itinerary newItinerary = Itinerary(
+      name: itineraryName,
+      entries: [itineraryEntry],
+
+
+    );
+
+      onItineraryCreated(newItinerary);
+
+  }
 }
-//>>>>>>> 57fe4b19d675cb04125f6f0c8515e73ef8be4c72
+
+
+
+class AddtoItinerary extends StatelessWidget {
+  final PlacesSearchResult? selectedPlace;
+  AddtoItinerary({this.selectedPlace});
+
+  @override
+  Widget build(BuildContext context) {
+    String imageUrl = '';
+
+    // Check if selectedPlace is not null and has photos
+    if (selectedPlace != null && selectedPlace!.photos.isNotEmpty) {
+      String photoReference = selectedPlace!.photos[0].photoReference;
+      imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            'Add to Itinerary',
+            style: GoogleFonts.quicksand(
+              fontSize: 20.0,
+               ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 8.0, ),
+
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: const Row(
+
+                children: [
+                  Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Icon(
+                      Icons.location_on_outlined),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [ Text(
+                        'Trip 1', //change later
+                        style: TextStyle(
+                          fontSize: 24.0,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        'Location 1 - Location 2' , //change later
+                         style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        'Date 1 - Date 2' , //change later
+                         style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                          overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                    ),
+                  ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8.0),
+
+            const SizedBox(height: 16.0),
+
+
+            const SizedBox(height: 8.0),
+
+
+            const SizedBox(height: 30.0),
+
+           /* if (selectedPlace != null) // Conditionally load the Location widget if navigated from MapScreen
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: const Color(0xFFE8D9CC),
+                ),
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(6),
+                        bottomLeft: Radius.circular(6),
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        width: 130,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          selectedPlace!.name,
+                          style: const TextStyle(
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),*/
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
