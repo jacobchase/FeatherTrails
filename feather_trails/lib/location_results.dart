@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
-import '../main.dart' show NewItinerary;
+import 'package:feather_trails/new_itinerary.dart';
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
@@ -95,7 +95,10 @@ class Locations extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NewItinerary(selectedPlace: place),
+                      builder: (context) => NewItineraryPage(
+                        bucket: PageStorageBucket(),
+                        selectedPlace: place,
+                      ),
                     ),
                   );
                 },

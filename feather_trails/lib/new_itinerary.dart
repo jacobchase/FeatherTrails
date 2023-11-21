@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:feather_trails/navBar.dart' as my_nav_bar;
+import 'package:google_maps_webservice/places.dart';
 
 class NewItineraryPage extends StatefulWidget {
   final PageStorageBucket bucket;
+  final PlacesSearchResult? selectedPlace;
 
-  const NewItineraryPage({required this.bucket});
+  const NewItineraryPage({required this.bucket, this.selectedPlace});
   @override
   NewItineraryPageState createState() => NewItineraryPageState();
 }
@@ -14,9 +16,22 @@ class NewItineraryPageState extends State<NewItineraryPage>
   @override
   bool get wantKeepAlive => true;
 
+  PlacesSearchResult? selectedPlace;
+
   @override
+  void initState() {
+    super.initState();
+    selectedPlace = widget.selectedPlace; // Update this line
+  }
   Widget build(BuildContext context) {
     super.build(context);
+    String imageUrl = '';
+
+    // Check if selectedPlace is not null and has photos
+    if (selectedPlace != null && selectedPlace!.photos.isNotEmpty) {
+      String photoReference = selectedPlace!.photos[0].photoReference;
+      imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=AIzaSyDXo20JjUHpFsttej--RYSHSyRhwrGCrRw';
+    }
     return PageStorage(
       bucket: widget.bucket,
       key: const PageStorageKey('NewItinerary'),
@@ -115,9 +130,46 @@ class NewItineraryPageState extends State<NewItineraryPage>
                   ),
                 ],
               ),
-              const SizedBox(
-                  height:
-                      35.0), // Add some space between the Row and the new Text widget
+
+              const SizedBox(height: 30.0),
+              if (selectedPlace != null) // Conditionally load the Location widget if navigated from MapScreen
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: const Color(0xFFE8D9CC),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                          bottomLeft: Radius.circular(6),
+                        ),
+                        child: Image.network(
+                          imageUrl,
+                          width: 130,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            selectedPlace!.name,
+                            style: const TextStyle(
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              const SizedBox(height: 30.0), // Add some space between the Row and the new Text widget
+
               const Text(
                 'Recommended Stops:', // Your additional text here
                 style: TextStyle(
