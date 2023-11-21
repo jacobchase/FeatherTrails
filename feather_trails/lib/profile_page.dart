@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:feather_trails/navBar.dart' as my_nav_bar;
 
 class ProfilePage extends StatefulWidget {
-  final PageStorageBucket bucket;
-
-  const ProfilePage({required this.bucket});
-
   @override
   ProfilePageState createState() => ProfilePageState();
 }
 
 class ProfilePageState extends State<ProfilePage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin<ProfilePage> {
   @override
   bool get wantKeepAlive => true;
 
@@ -62,7 +58,49 @@ class ProfilePageState extends State<ProfilePage>
                 child: const Text('Settings'),
               ),
             ),
-            // ... Add other buttons as needed
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  )),
+                  child: const Text('Privacy')),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  )),
+                  child: const Text('Notifications')),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  )),
+                  child: const Text('Shared Itineraries')),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Login');
+                },
+                style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                  const Size(320, 48),
+                )),
+                child: const Text('Logout'),
+              ),
+            ),
           ],
         ),
       ),
