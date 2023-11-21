@@ -1,3 +1,4 @@
+import 'package:feather_trails/place_itinerary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'intinerary_page.dart' show Itinerary;
@@ -19,7 +20,15 @@ class ItineraryCard extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, '/placeItinerary');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PlaceItineraryPage(
+                  bucket: PageStorageBucket(),
+                  selectedItinerary: itinerary,
+                ),
+              ),
+            );
           },
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8),

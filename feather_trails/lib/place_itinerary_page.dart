@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:feather_trails/navBar.dart' as my_nav_bar;
+import 'intinerary_page.dart' show Itinerary;
 
 class PlaceItineraryPage extends StatefulWidget {
   final PageStorageBucket bucket;
+  final Itinerary? selectedItinerary;
 
-  const PlaceItineraryPage({required this.bucket});
+  const PlaceItineraryPage({required this.bucket, this.selectedItinerary});
   @override
   PlaceItineraryPageState createState() => PlaceItineraryPageState();
 }
@@ -13,9 +15,15 @@ class PlaceItineraryPageState extends State<PlaceItineraryPage>
     with AutomaticKeepAliveClientMixin {
   int currentPageIndex = 1;
 
+  Itinerary? selectedItinerary;
   @override
   bool get wantKeepAlive => true;
 
+  @override
+  void initState() {
+    super.initState();
+    selectedItinerary = widget.selectedItinerary; // Update this line
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -24,11 +32,9 @@ class PlaceItineraryPageState extends State<PlaceItineraryPage>
       key: const PageStorageKey('PlaceItineraryPage'),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Itinerary 1'),
+          title: Text(selectedItinerary!.name),
         ),
-        body: const Center(
-          child: Text('This will be Itinerary 1'),
-        ),
+
         bottomNavigationBar: my_nav_bar.NavigationBar(
           selectedIndex: currentPageIndex,
           onDestinationSelected: (int index) {

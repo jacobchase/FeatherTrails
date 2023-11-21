@@ -179,7 +179,6 @@ class _MapScreenState extends State<MapScreen>
           onDestinationSelected: (int index) {
             setState(() {
               if (index == 0) {
-                Navigator.pushNamed(context, '/');
               }
               if (index == 1) {
                 Navigator.pushNamed(context, '/itineraryPage');
