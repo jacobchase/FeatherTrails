@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:feather_trails/privacy_policy.dart';
 import 'package:feather_trails/navBar.dart' as my_nav_bar;
 import 'package:feather_trails/place_itinerary_page.dart';
 import 'package:feather_trails/intinerary_page.dart';
@@ -9,14 +10,16 @@ import 'package:feather_trails/forgot_password.dart';
 import 'package:feather_trails/sign_up.dart';
 import 'package:feather_trails/new_itinerary.dart';
 import 'package:feather_trails/map_screen.dart';
+import 'package:feather_trails/notification_page.dart';
+import 'package:feather_trails/settings_page.dart';
+import 'package:feather_trails/shared_itineraries.dart';
+import 'package:feather_trails/account_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final PageStorageBucket bucket = PageStorageBucket();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,56 +35,57 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/Login',
       routes: {
-        '/': (context) => MapScreen(bucket: bucket),
-        '/placeItinerary': (context) => PlaceItineraryPage(bucket: bucket),
-        '/Login': (context) => LoginPage(bucket: bucket),
-        '/ForgotPassword': (context) => ForgotPasswordPage(bucket: bucket),
-        '/SignUp': (context) => SignUpPage(bucket: bucket),
-        '/NewItinerary': (context) => NewItineraryPage(bucket: bucket),
-        '/itineraryPage': (context) => ItineraryPage(bucket: bucket),
-        '/profilePage': (context) => ProfilePage(bucket: bucket),
-        '/socialPage': (context) => SocialPage(bucket: bucket),
+        '/': (context) => MapScreen(),
+        '/placeItinerary': (context) => PlaceItineraryPage(),
+        '/Login': (context) => LoginPage(),
+        '/ForgotPassword': (context) => ForgotPasswordPage(),
+        '/SignUp': (context) => SignUpPage(),
+        '/NewItinerary': (context) => const NewItineraryPage(),
+        '/itineraryPage': (context) => ItineraryPage(),
+        '/profilePage': (context) => ProfilePage(),
+        '/socialPage': (context) => SocialPage(),
+        '/privacyPolicyPage': (context) => PrivacyPolicyPage(),
+        '/notificationPage': (context) => NotificationsPage(),
+        '/settingsPage': (context) => SettingsPage(),
+        '/sharedItinerariesPage': (context) => SharedItinerariesPage(),
+        '/accountPage': (context) => AccountPage()
       },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final PageStorageBucket bucket;
-
-  const MyHomePage({required this.bucket});
-
   @override
   MyHomePageState createState() => MyHomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage>
-    with AutomaticKeepAliveClientMixin {
+class MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
+    Widget currentPage;
+    switch (currentPageIndex) {
+      case 0:
+        currentPage = Container(
+          alignment: Alignment.center,
+          child: const Text('Page 1'),
+        );
+        break;
+      case 1:
+        currentPage = Container();
+        break;
+      case 2:
+        currentPage = Container();
+      case 3:
+        currentPage = Container();
+      default:
+        currentPage = Container();
+    }
+
     return Scaffold(
-      body: PageStorage(
-        key: const PageStorageKey('HomePage'),
-        bucket: widget.bucket,
-        child: IndexedStack(
-          index: currentPageIndex,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              child: const Text('Page 1'),
-            ),
-            Container(),
-            Container(),
-            Container(),
-          ],
-        ),
-      ),
+      key: const PageStorageKey('HomePage'),
+      body: currentPage,
       bottomNavigationBar: my_nav_bar.NavigationBar(
         selectedIndex: currentPageIndex,
         onDestinationSelected: (int index) {
