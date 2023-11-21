@@ -6,14 +6,9 @@ class ProfilePage extends StatefulWidget {
   ProfilePageState createState() => ProfilePageState();
 }
 
-class ProfilePageState extends State<ProfilePage>
-    with AutomaticKeepAliveClientMixin<ProfilePage> {
-  @override
-  bool get wantKeepAlive => true;
-
+class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -37,56 +32,124 @@ class ProfilePageState extends State<ProfilePage>
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/accountPage');
+                },
                 style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
                   minimumSize: MaterialStateProperty.all(
                     const Size(320, 48),
                   ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the value as needed
+                    ),
+                  ),
                 ),
-                child: const Text('Account'),
+                child: const Text(
+                  'Account',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settingsPage');
+                },
                 style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
                   minimumSize: MaterialStateProperty.all(
                     const Size(320, 48),
                   ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the value as needed
+                    ),
+                  ),
                 ),
-                child: const Text('Settings'),
+                child: const Text(
+                  'Settings',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/privacyPolicyPage');
+                  },
                   style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
-                    const Size(320, 48),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Adjust the value as needed
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Privacy',
+                    style: TextStyle(color: Colors.white),
                   )),
-                  child: const Text('Privacy')),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/notificationPage');
+                  },
                   style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
-                    const Size(320, 48),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Adjust the value as needed
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Notifications',
+                    style: TextStyle(color: Colors.white),
                   )),
-                  child: const Text('Notifications')),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/sharedItinerariesPage');
+                  },
                   style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
-                    const Size(320, 48),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(320, 48),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Adjust the value as needed
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Shared Itineraries',
+                    style: TextStyle(color: Colors.white),
                   )),
-                  child: const Text('Shared Itineraries')),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -95,10 +158,22 @@ class ProfilePageState extends State<ProfilePage>
                   Navigator.pushNamed(context, '/Login');
                 },
                 style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                  const Size(320, 48),
-                )),
-                child: const Text('Logout'),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                  minimumSize: MaterialStateProperty.all(
+                    const Size(320, 48),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the value as needed
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
