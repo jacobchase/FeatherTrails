@@ -4,9 +4,9 @@ import 'package:feather_trails/new_itinerary.dart';
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
+  final Function(PlacesSearchResult) onLocationTap;
   final BuildContext context;
-
-  Locations({required this.placesList, required this.context});
+  const Locations({required this.placesList, required this.onLocationTap, required this.context});
   
   @override
   Widget build(BuildContext context) {
@@ -47,30 +47,35 @@ class Locations extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        ClipRRect(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(6),
-            bottomRight: Radius.circular(6),
-          ),
-          child: Container(
-            color: Colors.white,
-            width: 245.0,
-            height: 90.0,
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: <Widget>[
-                const Icon(Icons.location_on_outlined),
-                Flexible(
-                  child: Text(
-                    place.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2, // Adjust as needed
+        GestureDetector(
+          onTap: () {
+            onLocationTap(place);
+          },
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(6),
+              bottomRight: Radius.circular(6),
+            ),
+            child: Container(
+              color: Colors.white,
+              width: 245.0,
+              height: 90.0,
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: <Widget>[
+                  const Icon(Icons.location_on_outlined),
+                  Flexible(
+                    child: Text(
+                      place.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2, // Adjust as needed
+                    ),
                   ),
-                ),
-              ]
+                ]
+              ),
             ),
           ),
-        ),
+    ),
         Positioned(
           top: 0,
           right: 0,

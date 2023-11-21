@@ -82,6 +82,37 @@ class _MapScreenState extends State<MapScreen>
       }
     }
   }
+  final Map<String, Marker> markers = {};
+
+  markLocation(PlacesSearchResult place) {
+    if (place.geometry != null) {
+      final latLng = LatLng(place.geometry!.location.lat, place.geometry!.location.lng);
+
+      // Create a new Marker
+      final Marker marker = Marker(
+        markerId: MarkerId(place.name),
+        position: latLng,
+        infoWindow: InfoWindow(title: place.name, snippet: place.formattedAddress),
+      );
+
+      // Add the marker to the map
+      setState(() {
+        markers.clear();
+        markers[place.name] = marker;
+      });
+
+      // Move the camera to the marker position
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: latLng,
+            zoom: 14.0,
+          ),
+        ),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +125,7 @@ class _MapScreenState extends State<MapScreen>
           children: <Widget>[
             GoogleMap(
               onMapCreated: _onMapCreated,
+              markers: markers.values.toSet(),
               initialCameraPosition: CameraPosition(
                 target: _center,
                 zoom: 11.0,
@@ -132,8 +164,12 @@ class _MapScreenState extends State<MapScreen>
                 left: 0.0,
                 right: 0.0,
                 child: Locations(
-                    placesList: placesList,
                     context: context,
+                    placesList: placesList,
+                    onLocationTap: (PlacesSearchResult place) {
+                      markLocation(place);
+                      showLocations = false;
+                    },
                   ),
               ),
           ],
