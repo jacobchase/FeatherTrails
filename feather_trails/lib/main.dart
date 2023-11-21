@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(),
         '/placeItinerary': (context) => PlaceItineraryPage(),
         '/Login': (context) => Login(),
-        '/socials': (context) => Socials(),
+        '/socials1': (context) => Socials1(),
+        '/socials2': (context) => Socials2(),
       },
     );
   }
@@ -166,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/socials');
+                    Navigator.pushNamed(context, '/socials1');
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(
@@ -178,6 +179,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   child: const Text('Smith Family Vacation'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/socials2');
+                  },
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 150)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  child: const Text("Nashville Girls' Trip"),
                 ),
               ),
             ],
@@ -290,7 +309,7 @@ class PlaceItineraryPage extends StatelessWidget {
   }
 }
 
-class Socials extends StatelessWidget {
+class Socials1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -771,6 +790,502 @@ class Socials extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "The Galleria of Houston",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Socials2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Nashville Girls' Trip")),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Text(
+              " This is our activities from our weekend trip in Nashville. It was so much fun! -- Traveled by @user2222",
+              textAlign: TextAlign.center,
+            ),
+            const Text(
+              "Food/Dining",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      'https://nashvilleguru.com/officialwebsite/wp-content/uploads/2021/07/Downtown-SoBro-Nashville-2021-403-1024x683.jpg',
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "The Stillery",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://nashvilleguru.com/officialwebsite/wp-content/uploads/2015/01/Biscuit-Love-Nashville-4.jpg", //pappadeaux
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Biscuit Love",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://images.squarespace-cdn.com/content/v1/5dc42d385bd17557bf1a878b/1573141799474-JJRIHRNUSIK90G3BEJI4/tacoNash.jpg", //Cloud 10 Creamery
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Taco Mamacita",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://images.squarespace-cdn.com/content/v1/5ca281aefd6793726b1af235/1556743870349-YBDKM1U76FJASDJ95BSM/NathanZucker_1392.jpg?format=2500w", //Common Bond Cafe
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Southern Steak and Oyster",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://nashvilleguru.com/officialwebsite/wp-content/uploads/2021/06/Downtown-SoBro-Nashville-2021-163-1024x683.jpg", //Raven Grill
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Frothy Monkey",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://nashvilleguru.com/officialwebsite/wp-content/uploads/2021/05/12-South-Nashville-2021-155-1024x683.jpg", //Brennan's of Houston
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Edley's Bar-B-Que",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://whiskyadvocate.com/get/files/image/galleries/HUSK-Nashville-Exterior-2-HERO.png", //Blacksmith
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Husk",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              "Activities",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://belleairmansion.com/wp-content/uploads/2021/05/shutterstock_518798149.jpg", //Discovery Green
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Broadway Street",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://mlclwtesbrn2.i.optimole.com/w:1000/h:638/q:mauto/f:best/https://www.travelbybrit.com/wp-content/uploads/2022/09/IMG_8345_jpg.jpg", //Museum District
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Mural Tour Nashville",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://bloximages.chicago2.vip.townnews.com/abqjournal.com/content/tncms/assets/v3/editorial/7/96/796111c8-e651-52a0-9160-0f10ceb0d8bc/6481661a4617f.image.jpg?crop=1885%2C990%2C0%2C45&resize=1200%2C630&order=crop%2Cresize", //Buffalo Bayou
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Live Music at Bluebird Cafe",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://www.trolleytours.com/wp-content/uploads/2016/06/nashville-farmers-market-aerial.jpg",
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Nashville Farmer's Market",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://cheekwood.org/wp-content/uploads/Mansion_exterior_DJI_0239-Pano-Edit-2-1.jpg", //Minute Maid Park
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Cheekwood Estate and Gardens",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              "Shopping",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://www.tennessean.com/gcdn/-mm-/bfed09a733bce9a6dbb49982e953ce663b5956f3/c=0-21-400-247/local/-/media/2016/07/08/TennGroup/Nashville/636035760708081269-12south.jpg?width=400&height=226&fit=crop&format=pjpg&auto=webp", //The Galleria
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "12 South Neighborhood",
+                        style: const TextStyle(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: const Color(0xFFE8D9CC),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    child: Image.network(
+                      "https://www.trolleytours.com/wp-content/uploads/2016/06/nashville-the-gulch.jpg", //The Galleria
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "The Gulch",
                         style: const TextStyle(),
                         overflow: TextOverflow.ellipsis,
                       ),
