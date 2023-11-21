@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'screens/map_screen.dart';import 'widgets/itinerary_data.dart';
@@ -29,11 +30,14 @@ class MyApp extends StatelessWidget {
       initialRoute: '/Login',
       routes: {
         '/': (context) => MyHomePage(),
-        '/placeItinerary': (context) => PlaceItineraryPage(itinerary: null),
+        '/placeItinerary': (context) {
+          final itinerary = ModalRoute.of(context)!.settings.arguments as Itinerary?;
+        return PlaceItineraryPage(itinerary: itinerary);
+        },
         '/Login': (context) => Login(),
         '/ForgotPassword': (context) => ForgotPassword(),
         '/SignUp': (context) => SignUp(),
-        '/NewItinerary': (context) => NewItinerary(onItineraryCreated: (itinerary) {}),
+        '/NewItinerary': (context) => NewItinerary(),
         '/AddtoItinerary': (context) => AddtoItinerary(),
 
 
@@ -136,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: PlaceItineraryPage(itinerary: Itinerary(name: "Empty", entries: [])),
+          child: PlaceItineraryPage(itinerary: Itinerary(name: "Empty", entries: [], startDate: "Not Set", endDate: "Not Set")),
         ),
         Container(
           alignment: Alignment.center,
@@ -620,9 +624,36 @@ class PlaceItineraryPage extends StatelessWidget {
       ),
       body: Center(
         child: itinerary != null
-            ? Text('Itinerary: ${itinerary?.name ?? "Name not available"}')
-            : Text('No itinerary selected'),
+            ? Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8D9CC),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+            children:[
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                  '${itinerary!.name ?? "Itinerary is null"}\n${itinerary!.startDate ?? "Itinerary is null"} - ${itinerary!.startDate ?? "Itinerary is null"}',
+
+              style: TextStyle(fontSize: 24.0),
+            ),
+            ],
+          ),
+          ),
+        )
+            : Text('No itinerary selected, man'),
       ),
+
 
     );
   }
@@ -789,8 +820,8 @@ class NewItinerary extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  createNewItinerary();
-                  Navigator.pushNamed(context, '/placeNewItinerary');
+                  createNewItinerary(context);
+                  Navigator.pushNamed(context, '/placeItinerary', arguments: newItinerary);
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -813,29 +844,34 @@ class NewItinerary extends StatelessWidget {
       ),
     );
   }
-  void createNewItinerary() {
+
+  Itinerary? newItinerary;
+
+  void createNewItinerary(BuildContext context) {
     String itineraryName = itineraryNameController.text;
     String startDateText = startDateController.text;
     String endDateText = endDateController.text;
 
+
     ItineraryEntry itineraryEntry = ItineraryEntry(
       placeName: selectedPlace!.name,
-      location: selectedPlace!.placeId,
-      date: DateTime.now(), //FIX
+      location: selectedPlace!.placeId, //not sure how to get location using the selectedPlace thing
+      date: "No date set", //FIX
       );
 
-      Itinerary newItinerary = Itinerary(
+      newItinerary = Itinerary(
       name: itineraryName,
+      startDate: startDateText,
+      endDate: endDateText,
       entries: [itineraryEntry],
-
-
     );
 
-      onItineraryCreated(newItinerary);
+    print('Creating the fucking itinerary');
+
+    Navigator.pushNamed(context, '/placeItinerary', arguments: newItinerary);
 
   }
 }
-
 
 
 class AddtoItinerary extends StatelessWidget {
@@ -925,41 +961,6 @@ class AddtoItinerary extends StatelessWidget {
 
             const SizedBox(height: 30.0),
 
-           /* if (selectedPlace != null) // Conditionally load the Location widget if navigated from MapScreen
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: const Color(0xFFE8D9CC),
-                ),
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        bottomLeft: Radius.circular(6),
-                      ),
-                      child: Image.network(
-                        imageUrl,
-                        width: 130,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          selectedPlace!.name,
-                          style: const TextStyle(
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),*/
           ],
         ),
       ),
