@@ -22,8 +22,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final PageStorageBucket bucket = PageStorageBucket();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,40 +59,24 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final PageStorageBucket bucket;
-
-  const MyHomePage({required this.bucket});
-
   @override
   MyHomePageState createState() => MyHomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage>
-    with AutomaticKeepAliveClientMixin {
+class MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
-      body: PageStorage(
-        key: const PageStorageKey('HomePage'),
-        bucket: widget.bucket,
-        child: IndexedStack(
-          index: currentPageIndex,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              child: const Text('Page 1'),
-            ),
-            Container(),
-            Container(),
-            Container(),
-          ],
-        ),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: [
+          Container(),
+          Container(),
+          Container(),
+          Container(),
+        ],
       ),
       bottomNavigationBar: my_nav_bar.NavigationBar(
         selectedIndex: currentPageIndex,
