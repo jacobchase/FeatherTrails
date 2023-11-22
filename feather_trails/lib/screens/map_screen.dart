@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:feather_trails/widgets/location_results.dart';
+import 'package:feather_trails/location_results.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class MapScreen extends StatefulWidget {

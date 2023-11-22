@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
-import '../main.dart' show NewItinerary;
-import '../main.dart' show AddtoItinerary;
-import '../screens/map_screen.dart';
+import 'package:feather_trails/new_itinerary.dart';
 
 class Locations extends StatelessWidget {
   final List<PlacesSearchResult> placesList;
   final BuildContext context;
 
+  Locations({required this.placesList, required this.context});
 
-  Locations({required this.placesList, required this.context, });
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,16 +58,30 @@ class Locations extends StatelessWidget {
             height: 90.0,
             padding: const EdgeInsets.all(20.0),
             child: Row(
-              children: <Widget>[
-                const Icon(Icons.location_on_outlined),
-                Flexible(
-                  child: Text(
-                    place.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2, // Adjust as needed
+                children: <Widget>[
+                  Container(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: const Icon(
+
+                    Icons.location_on_outlined,
+                    size: 30.0,
+                    color: Color(0xFF58636A)
+                    ),
                   ),
-                ),
-              ]
+                  Flexible(
+                    child: Text(
+                      place.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Quicksand',
+                        color: Color(0xFF58636A),
+                        fontSize: 18.0,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2, // Adjust as needed
+                    ),
+                  ),
+                ]
             ),
           ),
         ),
@@ -80,14 +91,7 @@ class Locations extends StatelessWidget {
           child: Column(
             children: <Widget>[
               RawMaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) => AddtoItinerary(selectedPlace: place),
-                    ),
-                  );
-                },
+                onPressed: () {},
                 elevation: 0,
                 fillColor: const Color(0xFFE8D9CC),
                 constraints: const BoxConstraints.tightFor(
@@ -97,7 +101,7 @@ class Locations extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Icon(Icons.add),
+                child: const Icon(Icons.add, color: Color(0xFF58636A)),
               ),
               const SizedBox(height: 20),
               RawMaterialButton(
@@ -105,7 +109,10 @@ class Locations extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NewItinerary(selectedPlace: place),
+                      builder: (context) => NewItineraryPage(
+                        //bucket: PageStorageBucket(),
+                        selectedPlace: place,
+                      ),
                     ),
                   );
                 },
@@ -118,7 +125,7 @@ class Locations extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Icon(Icons.edit_square),
+                child: const Icon(Icons.edit_square,color: Color(0xFF58636A)),
               ),
             ],
           ),
