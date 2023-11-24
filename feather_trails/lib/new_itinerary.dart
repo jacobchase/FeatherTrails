@@ -163,7 +163,7 @@ class NewItineraryPageState extends State<NewItineraryPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           selectedPlace!.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                           fontFamily: 'Quicksand',
                           fontWeight: FontWeight.w600,
                           fontSize: 20.0,
@@ -182,7 +182,7 @@ class NewItineraryPageState extends State<NewItineraryPage> {
                     30.0), // Add some space between the Row and the new Text widget
 
             const Text(
-              'Recommended Stops:', // Your additional text here
+              'Recommended Stops:',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.black,

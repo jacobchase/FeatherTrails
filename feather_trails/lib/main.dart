@@ -6,7 +6,11 @@ import 'package:feather_trails/settings_page.dart';
 import 'package:feather_trails/shared_itineraries.dart';
 import 'package:feather_trails/navBar.dart' as my_nav_bar;
 import 'package:feather_trails/place_itinerary_page.dart';
+import 'package:feather_trails/add_to_itinerary_page.dart';
 import 'package:feather_trails/intinerary_page.dart';
+import 'package:feather_trails/itinerary_edit_page.dart';
+import 'package:feather_trails/itinerary_date_details_page.dart';
+import 'package:feather_trails/itinerary_date_edit_page.dart';
 import 'package:feather_trails/profile_page.dart';
 import 'package:feather_trails/social_page.dart';
 import 'package:feather_trails/login_page.dart';
@@ -26,6 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Feather Trails',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFFC93C13),
@@ -44,6 +49,10 @@ class MyApp extends StatelessWidget {
         '/SignUp': (context) => SignUpPage(),
         '/NewItinerary': (context) => const NewItineraryPage(),
         '/itineraryPage': (context) => ItineraryPage(),
+        '/addtoItineraryPage' : (context) => AddtoItineraryPage(),
+        '/itineraryEditPage' : (context) => ItineraryEditPage(),
+        '/itineraryDateEditPage' : (context) => ItineraryDateEditPage(),
+        '/itineraryDateDetailsPage' : (context) => ItineraryDateDetailsPage(),
         '/profilePage': (context) => ProfilePage(),
         '/socialPage': (context) => SocialPage(),
         '/accountPage': (context) => AccountPage(),

@@ -6,11 +6,14 @@ class Socials1 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Smith Family Vacation",
-          style: TextStyle(color: Colors.white),
+          "Johnson's Family Vacation",
+          style:  TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFFC93C13),
+        //iconTheme: const IconThemeData(color: Colors.white),
+        //backgroundColor: const Color(0xFFC93C13),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -24,18 +27,26 @@ class Socials1 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: const Text(
-                "This is an itinerary of our weekend trip to Houston. Hope you enjoy it as much as we did! -- Traveled by @user1111",
+                "Wow, what a weekend in Houston! 🌟 Our trip was an absolute blast, and I couldn't wait to share the details of our incredible adventure. Hope you enjoy it as much as we did! 💖 -- Traveled by @user1111",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  fontFamily: 'Quicksand-Bold',
+                  fontFamily: 'Quicksand',
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            const Text(
-              "Food/Dining",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Food/Dining",
+                textAlign: TextAlign.left,
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+              ),
             ),
             _buildItemWithRating(
               "Waffle House",
@@ -77,10 +88,17 @@ class Socials1 extends StatelessWidget {
               "https://d2xrc96hxzhrpb.cloudfront.net/assets/tiki-bars/1012658/high-dry-A.jpg?dateUpdated=2023-09-05T11:07:21+10:00",
               3.5,
             ),
-            const Text(
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
               "Activities",
               textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+            ),
             ),
             _buildItemWithRating(
               "Discovery Green",
@@ -107,10 +125,17 @@ class Socials1 extends StatelessWidget {
               "https://media.bizj.us/view/img/12503702/041923cf-team-storeeta00209*1200xx5760-3240-0-2263.jpg",
               3.0,
             ),
-            const Text(
-              "Shopping",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Shopping",
+                textAlign: TextAlign.left,
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+              ),
             ),
             _buildItemWithRating(
               "The Galleria of Houston",
@@ -125,9 +150,11 @@ class Socials1 extends StatelessWidget {
 }
 
 Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
-  return Container(
+  return Padding(
+    padding: EdgeInsets.only(top: 8.0),
+    child: Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(8),
       color: const Color(0xFFE8D9CC),
     ),
     margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
@@ -137,8 +164,8 @@ Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(6),
-                bottomLeft: Radius.circular(6),
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
               ),
               child: Image.network(
                 imageUrl,
@@ -149,13 +176,18 @@ Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       itemName,
-                      style: const TextStyle(),
+                      style:  const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Quicksand',
+                        fontSize: 16,
+                        color: Color(0xFF58636A),
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8.0),
@@ -167,6 +199,7 @@ Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
           ],
         ),
       ],
+    ),
     ),
   );
 }

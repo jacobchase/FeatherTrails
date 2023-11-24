@@ -28,8 +28,9 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account'),
-        backgroundColor: const Color(0xFFC03C13),
+        title: const Text('Account',
+          style: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold,),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,19 +39,23 @@ class _AccountPageState extends State<AccountPage> {
           children: [
             const Text(
               'Account Information',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20,fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            const Text('Username: user0000'),
-            const Text('Email: user0000@gmail.com'),
+            const Text('Username: user0000', style: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w500),),
+            const Text('Email: user0000@gmail.com', style: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w500),),
             const SizedBox(height: 24),
             const Text(
               'Change Password',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18,fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
             ),
             TextField(
+              style: const TextStyle(
+                  fontFamily: 'Quicksand', fontWeight: FontWeight.w500
+              ),
               decoration: const InputDecoration(
                 labelText: 'Old Password',
+                labelStyle: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w500),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                 ),
@@ -66,8 +71,12 @@ class _AccountPageState extends State<AccountPage> {
               },
             ),
             TextField(
+              style: TextStyle(
+                fontFamily: 'Quicksand',
+              ),
               decoration: const InputDecoration(
                 labelText: 'New Password',
+                labelStyle: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w500),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                 ),
@@ -83,8 +92,12 @@ class _AccountPageState extends State<AccountPage> {
               },
             ),
             TextField(
+              style: TextStyle(
+                fontFamily: 'Quicksand',
+              ),
               decoration: const InputDecoration(
                 labelText: 'Confirm New Password',
+                labelStyle: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w500),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                 ),
@@ -127,7 +140,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               child: const Text(
                 'Change Password',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontFamily: 'Quicksand'),
               ),
             ),
           ],

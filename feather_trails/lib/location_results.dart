@@ -91,7 +91,7 @@ class Locations extends StatelessWidget {
           child: Column(
             children: <Widget>[
               RawMaterialButton(
-                onPressed: () {},
+                onPressed: () { Navigator.pushNamed(context, '/addtoItineraryPage');},
                 elevation: 0,
                 fillColor: const Color(0xFFE8D9CC),
                 constraints: const BoxConstraints.tightFor(

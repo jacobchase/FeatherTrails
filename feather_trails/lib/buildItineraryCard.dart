@@ -13,9 +13,6 @@ class ItineraryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String photoReference = place.photos[0].photoReference;
-    // String imageUrl =
-    //     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=';
     return Stack(
       alignment: Alignment.bottomLeft,
       children: <Widget>[
@@ -97,7 +94,9 @@ class ItineraryCard extends StatelessWidget {
                 children: [
                   IconButton(
                     iconSize: 20,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/itineraryEditPage');
+                    },
                     icon: const Icon(Icons.edit_outlined, color: Color(0xFF58636A),),
                   ),
                   Text(
