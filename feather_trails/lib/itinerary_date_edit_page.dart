@@ -54,7 +54,7 @@ class ItineraryDateEditPageState extends State<ItineraryDateEditPage> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0, top: 30.0),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
@@ -183,7 +183,7 @@ class ItineraryDateEditPageState extends State<ItineraryDateEditPage> {
         ),
       ),
       bottomNavigationBar: my_nav_bar.NavigationBar(
-        selectedIndex: 2,
+        selectedIndex: 1,
         onDestinationSelected: (int index) {
           setState(() {
             if (index == 0) {

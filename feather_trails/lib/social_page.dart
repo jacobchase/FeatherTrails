@@ -41,7 +41,7 @@ class SocialPageState extends State<SocialPage> {
                     ),
                   ),
                 ),
-                child: Stack(
+                child: const Stack(
                   alignment: Alignment.centerLeft,
                   children: [
                    //Image.network(

@@ -11,6 +11,7 @@ import 'package:feather_trails/intinerary_page.dart';
 import 'package:feather_trails/itinerary_edit_page.dart';
 import 'package:feather_trails/itinerary_date_details_page.dart';
 import 'package:feather_trails/itinerary_date_edit_page.dart';
+import 'package:feather_trails/date_entry_details.dart';
 import 'package:feather_trails/profile_page.dart';
 import 'package:feather_trails/social_page.dart';
 import 'package:feather_trails/login_page.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/itineraryEditPage' : (context) => ItineraryEditPage(),
         '/itineraryDateEditPage' : (context) => ItineraryDateEditPage(),
         '/itineraryDateDetailsPage' : (context) => ItineraryDateDetailsPage(),
+        '/dateEntryDetailsPage' : (context) => DateEntryDetailsPage(),
         '/profilePage': (context) => ProfilePage(),
         '/socialPage': (context) => SocialPage(),
         '/accountPage': (context) => AccountPage(),

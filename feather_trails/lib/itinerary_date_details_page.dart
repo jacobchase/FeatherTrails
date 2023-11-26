@@ -19,18 +19,11 @@ class ItineraryDateDetailsPageState extends State<ItineraryDateDetailsPage> {
           ),),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        //padding: const EdgeInsets.only(top: 16.0,  left: 16.0, right: 16.0),
         child: Column(
           children: <Widget>[
             Container(
               alignment: Alignment.center,
-              //padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                //border: Border(
-                  //  bottom: BorderSide(
-                    //  color: Colors.black,
-                    //)),
-              ),
               child: const TextField(
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -53,8 +46,12 @@ class ItineraryDateDetailsPageState extends State<ItineraryDateDetailsPage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0, top: 30.0),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/dateEntryDetailsPage');
+              },
+             child: Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
@@ -94,6 +91,7 @@ class ItineraryDateDetailsPageState extends State<ItineraryDateDetailsPage> {
                   ],
                 ),
               ),
+            ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
@@ -183,7 +181,7 @@ class ItineraryDateDetailsPageState extends State<ItineraryDateDetailsPage> {
         ),
       ),
       bottomNavigationBar: my_nav_bar.NavigationBar(
-        selectedIndex: 2,
+        selectedIndex: 1,
         onDestinationSelected: (int index) {
           setState(() {
             if (index == 0) {

@@ -388,7 +388,7 @@ class ItineraryEditPageState extends State<ItineraryEditPage> {
       ),
     ),
       bottomNavigationBar: my_nav_bar.NavigationBar(
-        selectedIndex: 2,
+        selectedIndex: 1,
         onDestinationSelected: (int index) {
           setState(() {
             if (index == 0) {
