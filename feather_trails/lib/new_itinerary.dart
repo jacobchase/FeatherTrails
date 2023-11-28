@@ -292,12 +292,6 @@ class NewItineraryPageState extends State<NewItineraryPage>{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        //child: Image.network(
-                          //'https://lh3.googleusercontent.com/p/AF1QipO4_O57SaWhxZP8KtklEeKiV_IHqNQb7rwMBIWx=s0',
-                          //width: 130,
-                         // height: 100,
-                         // fit: BoxFit.cover,
-                       // ),
                       ),
                       Expanded(
                         child: Padding(

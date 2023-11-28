@@ -94,14 +94,14 @@ class DateEntryDetailsPageState extends State<DateEntryDetailsPage> {
        child: Container(
       decoration: BoxDecoration(
         color: Color(0xFFE8D9CC),
-        borderRadius: BorderRadius.circular(10.0), // Set the border radius
+        borderRadius: BorderRadius.circular(10.0),
       ),
 
         child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Icon(icon, color: const Color(0xFF58636A)), // Info icon
+            Icon(icon, color: const Color(0xFF58636A)),
             const SizedBox(width: 16.0),
             Expanded(
             child: Text(
