@@ -30,40 +30,26 @@ class ItineraryPageState extends State<ItineraryPage> {
   @override
   Widget build(BuildContext context) {
     Itinerary dummyItinerary = Itinerary(
-        name: 'Sample Itinerary',
-        locations: 'Starting Location - Destination',
-        dateRange: 'Start date - end date',
-        numberOfPlaces: '5', // Replace with the actual number of places
+        name: "The Smith's Family Vacation" ,
+        locations: 'Baton Rouge, LA - San Antonio, TX',
+        dateRange: '12/20/23 - 12/24/23',
+        numberOfPlaces: '17', // Replace with the actual number of places
         imageUrl:
-            'https://images.unsplash.com/photo-1589405858862-2ac9cbb41321?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8fA%3D%3D');
+            'https://lh3.googleusercontent.com/p/AF1QipOU4Pvbwmqau0zl5oPT7Hl4ilyMMgK52yA4aoOq=s0');
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Itineraries',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),
+        ),
+      ),
       body: Center(
         child: Container(
           alignment: Alignment.center,
           child: Column(
             children: [
-              const Text(''),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/NewItinerary');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFFC93C13)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    minimumSize: MaterialStateProperty.all(const Size(360, 48)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                  child: const Text('New Itinerary +'),
-                ),
-              ),
               ItineraryCard(context: context, itinerary: dummyItinerary),
             ],
           ),

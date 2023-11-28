@@ -139,11 +139,24 @@ class _MapScreenState extends State<MapScreen> {
                 ),
                 child: TextField(
                   controller: _searchController,
+                  style: const TextStyle(
+                    fontFamily: 'Quicksand',
+                    color: Color(0xFF58636A),
+                    fontWeight:FontWeight.w600,
+                    fontSize: 18.0,
+                  ),
                   decoration: const InputDecoration(
                     hintText: 'Where do you want to go?',
+                    hintStyle:TextStyle(
+                      fontFamily: 'Quicksand',
+                    ),
+
                     prefixIcon:
-                        Icon(Icons.location_on_outlined, color: Colors.black),
+                        Icon(Icons.location_on_outlined, color: Color(0xFF58636A)),
                     border: InputBorder.none,
+
+
+
                   ),
                   onSubmitted: (value) {
                     submitSearch();
@@ -161,10 +174,10 @@ class _MapScreenState extends State<MapScreen> {
               child: Locations(
                 context: context,
                 placesList: placesList,
-                onLocationTap: (PlacesSearchResult place) {
-                  markLocation(place);
-                  showLocations = false;
-                },
+                //onLocationTap: (PlacesSearchResult place) {
+                  //markLocation(place);
+                  //showLocations = false;
+               // },
               ),
             ),
         ],

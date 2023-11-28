@@ -14,9 +14,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications Settings'),
-        backgroundColor:
-            const Color(0xFFC93C13), // Set the background color of the AppBar
+        title: const Text('Notifications Settings',
+          style:  TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,7 +26,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SwitchListTile(
-              title: const Text('Receive Notifications'),
+              title: const Text('Receive Notifications',
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Quicksand',
+                ),),
               inactiveThumbColor: const Color(0xFFB2B7AE),
               inactiveTrackColor: const Color(0xFF58636A),
               value: receiveNotifications,
@@ -36,7 +42,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
             ),
             const SizedBox(height: 16.0),
             SwitchListTile(
-              title: const Text('Show Notification Preview'),
+              title: const Text('Show Notification Preview',
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Quicksand',
+                ),),
               inactiveThumbColor: const Color(0xFFB2B7AE),
               inactiveTrackColor: const Color(0xFF58636A),
               value: showPreview,
@@ -48,7 +58,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
             ),
             const SizedBox(height: 16.0),
             ListTile(
-              title: const Text('Notification Interval (minutes)'),
+              title: const Text('Notification Interval (minutes)',
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Quicksand',
+                ),),
               subtitle: Slider(
                 value: notificationInterval.toDouble(),
                 min: 1,
@@ -59,7 +73,12 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   });
                 },
               ),
-              trailing: Text('$notificationInterval min'),
+              trailing: Text('$notificationInterval min',
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                ),
+              ),
             ),
           ],
         ),

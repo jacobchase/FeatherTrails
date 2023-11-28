@@ -11,10 +11,12 @@ class NavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        canvasColor: const Color(0xFFC93C13),
-      ),
+    return Container(
+      child: ClipRRect(
+            borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(6.0),
+            topRight: Radius.circular(6.0),
+           ),
       child: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: onDestinationSelected,
@@ -28,6 +30,8 @@ class NavigationBar extends StatelessWidget {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFFC93C13), // Set background color here
+
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.map_outlined),
@@ -46,6 +50,7 @@ class NavigationBar extends StatelessWidget {
             label: 'Profile',
           ),
         ],
+      ),
       ),
     );
   }

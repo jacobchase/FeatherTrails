@@ -13,9 +13,6 @@ class ItineraryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String photoReference = place.photos[0].photoReference;
-    // String imageUrl =
-    //     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=$photoReference&key=';
     return Stack(
       alignment: Alignment.bottomLeft,
       children: <Widget>[
@@ -25,7 +22,7 @@ class ItineraryCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => PlaceItineraryPage(
-                  selectedItinerary: itinerary,
+                  //selectedItinerary: itinerary,    //
                 ),
               ),
             );
@@ -55,7 +52,7 @@ class ItineraryCard extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.only(right: 10.0),
-                child: const Icon(Icons.location_on_outlined, size: 30.0),
+                child: const Icon(Icons.location_on_outlined, size: 30.0,color: Color(0xFF58636A),),
               ),
               Expanded(
                 child: Column(
@@ -67,20 +64,25 @@ class ItineraryCard extends StatelessWidget {
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Quicksand',
+                        color: Color(0xFF58636A),
                       ),
                     ),
                     Text(
                       itinerary.locations,
                       style: const TextStyle(
                         fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Quicksand',
+                        color: Color(0xFF58636A),
                       ),
                     ),
                     Text(
                       itinerary.dateRange,
                       style: const TextStyle(
                         fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Quicksand',
+                        color: Color(0xFF58636A),
                       ),
                     )
                   ],
@@ -92,14 +94,17 @@ class ItineraryCard extends StatelessWidget {
                 children: [
                   IconButton(
                     iconSize: 20,
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/itineraryEditPage');
+                    },
+                    icon: const Icon(Icons.edit_outlined, color: Color(0xFF58636A),),
                   ),
                   Text(
                     itinerary.numberOfPlaces + ' places',
                     style: const TextStyle(
                       fontSize: 12.0,
                       fontFamily: 'Quicksand',
+                      color: Color(0xFF58636A),
                     ),
                   ),
                 ],

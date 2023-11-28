@@ -19,16 +19,24 @@ class SharedItinerariesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shared Itineraries'),
-        backgroundColor: const Color(0xFFC93C13),
+        title: const Text('Shared Itineraries',
+          style:  TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),),
       ),
-      body: const Center(
+      body: const Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'You don\'t have any shared itineraries at the moment.',
-              style: TextStyle(fontSize: 18),
+              style:  TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Quicksand',
+              ),
               textAlign: TextAlign.center,
             ),
           ],

@@ -14,9 +14,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor:
-            const Color(0xFFC93C13), // Set the background color of the AppBar
+        title: const Text('Settings',
+          style:  TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,7 +27,11 @@ class _SettingsPageState extends State<SettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SwitchListTile(
-              title: const Text('Clear Data'),
+              title: const Text('Clear Data',
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Quicksand',
+                ),),
               inactiveThumbColor: const Color(0xFFB2B7AE),
               inactiveTrackColor: const Color(0xFF58636A),
               value: receiveNotifications,
@@ -36,7 +43,11 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SizedBox(height: 16.0),
             SwitchListTile(
-              title: const Text('Clear Cache'),
+              title: const Text('Clear Cache',
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Quicksand',
+                ),),
               inactiveThumbColor: const Color(0xFFB2B7AE),
               inactiveTrackColor: const Color(0xFF58636A),
               value: showPreview,

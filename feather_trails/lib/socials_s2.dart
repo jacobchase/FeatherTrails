@@ -7,10 +7,11 @@ class Socials2 extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Nashville Girls' Trip",
-          style: TextStyle(color: Colors.white),
+          style:  TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Quicksand',
+          ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFFC93C13),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -24,18 +25,26 @@ class Socials2 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: const Text(
-                "This is our activities from our weekend trip in Nashville. It was so much fun! -- Traveled by @user2222",
+                "These are our activities from our weekend trip in Nashville. It was so much fun! 🎶💙 -- Traveled by @user2222",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  fontFamily: 'Quicksand-Bold',
+                  fontFamily: 'Quicksand',
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            const Text(
-              "Food/Dining",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Food/Dining",
+                textAlign: TextAlign.left,
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+              ),
             ),
             _buildItemWithRating(
               "The Stillery",
@@ -72,10 +81,17 @@ class Socials2 extends StatelessWidget {
               "https://whiskyadvocate.com/get/files/image/galleries/HUSK-Nashville-Exterior-2-HERO.png",
               3.0,
             ),
-            const Text(
-              "Activities",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Activities",
+                textAlign: TextAlign.left,
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+              ),
             ),
             _buildItemWithRating(
               "Broadway Street",
@@ -102,10 +118,17 @@ class Socials2 extends StatelessWidget {
               "https://cheekwood.org/wp-content/uploads/Mansion_exterior_DJI_0239-Pano-Edit-2-1.jpg",
               4.0,
             ),
-            const Text(
-              "Shopping",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Shopping",
+                textAlign: TextAlign.left,
+                style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                  fontSize: 28,
+                ),
+              ),
             ),
             _buildItemWithRating(
               "12 South Neighborhood",
@@ -125,7 +148,9 @@ class Socials2 extends StatelessWidget {
 }
 
 Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
-  return Container(
+  return Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(6),
       color: const Color(0xFFE8D9CC),
@@ -149,13 +174,18 @@ Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       itemName,
-                      style: const TextStyle(),
+                      style:  const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Quicksand',
+                        fontSize: 16,
+                        color: Color(0xFF58636A),
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8.0),
@@ -168,6 +198,7 @@ Widget _buildItemWithRating(String itemName, String imageUrl, double rating) {
         ),
       ],
     ),
+  ),
   );
 }
 

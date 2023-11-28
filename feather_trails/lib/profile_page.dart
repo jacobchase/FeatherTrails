@@ -27,7 +27,7 @@ class ProfilePageState extends State<ProfilePage> {
             const Text(
               '@user0000',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'Quicksand'),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -50,7 +50,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 child: const Text(
                   'Account',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                 ),
               ),
             ),
@@ -75,7 +75,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 child: const Text(
                   'Settings',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                 ),
               ),
             ),
@@ -100,7 +100,7 @@ class ProfilePageState extends State<ProfilePage> {
                   ),
                   child: const Text(
                     'Privacy',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                   )),
             ),
             Padding(
@@ -124,7 +124,7 @@ class ProfilePageState extends State<ProfilePage> {
                   ),
                   child: const Text(
                     'Notifications',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                   )),
             ),
             Padding(
@@ -148,7 +148,7 @@ class ProfilePageState extends State<ProfilePage> {
                   ),
                   child: const Text(
                     'Shared Itineraries',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                   )),
             ),
             Padding(
@@ -172,7 +172,7 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
                 child: const Text(
                   'Logout',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: 'Quicksand'),
                 ),
               ),
             ),

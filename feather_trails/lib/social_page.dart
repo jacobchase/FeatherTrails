@@ -11,9 +11,12 @@ class SocialPageState extends State<SocialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Be Social!"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
+        title: const Text("Be Social!",
+          style: TextStyle(
+            fontFamily: 'Quicksand',
+            fontWeight: FontWeight.bold, // Set the font weight
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -27,11 +30,11 @@ class SocialPageState extends State<SocialPage> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                      MaterialStateProperty.all<Color>(Color(0xFFE8D9CC)),
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                      MaterialStateProperty.all<Color>(Color(0xFF58636A)),
                   minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 150)),
+                      const Size(double.infinity, 180)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -41,17 +44,23 @@ class SocialPageState extends State<SocialPage> {
                 child: const Stack(
                   alignment: Alignment.centerLeft,
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
+                   //Image.network(
+                   //'https://lh3.googleusercontent.com/p/AF1QipOU4Pvbwmqau0zl5oPT7Hl4ilyMMgK52yA4aoOq=s0',
+                    //  width: 350,
+                      //height: 360,
+                     // fit: BoxFit.cover,
+                      //alignment: Alignment.centerLeft,
+                    //),
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Smith Family Vacation',
+                        "Johnson's Family Vacation",
+                          style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0,
+                        ),
+
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -67,11 +76,11 @@ class SocialPageState extends State<SocialPage> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xFFC93C13)),
+                      MaterialStateProperty.all<Color>(Color(0xFFE8D9CC)),
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                      MaterialStateProperty.all<Color>(Color(0xFF58636A)),
                   minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 150)),
+                      const Size(double.infinity, 180)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -82,17 +91,15 @@ class SocialPageState extends State<SocialPage> {
                   alignment: Alignment.centerLeft,
                   children: [
                     Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Align(
                       alignment: Alignment.center,
                       child: Text(
                         "Nashville Girls' Trip",
-                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0,
+                        ),
+                        //textAlign: TextAlign.center,
                       ),
                     ),
                   ],
